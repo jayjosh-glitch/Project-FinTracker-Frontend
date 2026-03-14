@@ -5,9 +5,9 @@ import Expense from "../src/features/expense/Expense"
 import History from "./features/history/Hisotry"
 import Income from "./features/Income/Income"
 import { Routes, Route } from "react-router-dom"
-import Home from "./Pages/Home"
-import Contact from "./Pages/Contact"
-import About from "./Pages/About"
+import Home from "../src/pages/Home"
+import Contact from "../src/pages/Contact"
+import About from "../src/pages/About"
 import Dashboard from "./features/dashboard/Dashboard"
 
 function App() {
