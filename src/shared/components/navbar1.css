@@ -1,0 +1,67 @@
+.nav-bar {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+/* Title + Logo */
+.title-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-logo h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.logo {
+    width: 35px;
+    height: 35px;
+}
+
+/* Links container */
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+/* Links */
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 1.25rem;
+    position: relative;
+    padding: 10px 0;
+    transition: 0.5s;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+    color: #e0f2fe;
+}
+
+/* Animated underline */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}

@@ -1,0 +1,48 @@
+/* Dashboard container */
+
+.dashboard-container {
+  padding: 30px;
+  background: linear-gradient(135deg, #f8fafc, #eef2ff);
+  min-height: 100vh;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-container h2 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #1e293b;
+  text-align: center;
+}
+
+.chart-card {
+  width: 1000px;
+  max-width: 100%;
+  background: white;
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  margin-top: 100px;
+  margin-left: 200px;
+}
+.chart-card h2{
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #1e293b;
+  text-align: center;
+}
+/* subtle hover */
+
+.chart-card:hover {
+  transform: translateY(-3px);
+}
+
+/* chart container fix */
+
+.recharts-responsive-container {
+  font-size: 14px;
+}
