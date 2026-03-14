@@ -2,7 +2,7 @@
 import { useFetchExpenses } from '../../shared/hooks/useFetchExpenses';
 import Navbar from '../../shared/components/Navbar';
 // import { useAuth } from '../Auth/Authcontext';
-import { useFetchIncomes } from '../../shared/hooks/temp';
+import { useFetchIncomes } from '../../shared/hooks/useFetchIncomes';
 import { useState } from 'react';
 import '../history/history.css';
 
