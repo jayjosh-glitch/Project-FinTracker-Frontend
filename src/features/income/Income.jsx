@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useFetchIncomes } from '../../shared/hooks/useFetchIncomes';
+import { useFetchIncomes } from '../../shared/hooks/temp';
 import Navbar from '../../shared/components/Navbar';
 import { useAuth } from '../auth/Authcontext';
 import { useState } from 'react';
