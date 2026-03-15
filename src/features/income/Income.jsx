@@ -8,13 +8,22 @@ import '../income/income.css';
 
 const Income = () => {
 
-	const { incomeList, glerror, loading, updateIncomes, deleteIncomes } = useFetchIncomes();
+	const { incomeList, glerror, loading, updateIncomes, deleteIncomes, addIncomes } = useFetchIncomes();
 	const [income, setincome] = useState([]);
 	const { currentuser } = useAuth();
 	const [edit, setedit] = useState(false)
 	const [selectedIncome, setselectedIncome] = useState(null)
 	const [showDeleteModal, setShowDeleteModal] = useState(false)
 	const [incomeToDelete, setIncomeToDelete] = useState(null)
+	const [add, setadd] = useState(false)
+	const [newIncome, setnewIncome] = useState({
+		incomeType: "",
+		amount: 0,
+		date: "",
+		month: "",
+		remarks: "",
+		financialYear: ""
+	})
 	console.log(incomeList)
 
 	useEffect(() => {
@@ -40,6 +49,20 @@ const Income = () => {
 	const handleEdit = (income) => {
 		setedit(true)
 		setselectedIncome(income)
+	}
+    
+	const handleaddExpense = async () => {
+		const addIncome = {
+			date: newIncome.date,
+			incomeType: newIncome.incomeType,
+			remarks: newIncome.remarks,
+			amount: Number(newIncome.amount),
+			month: newIncome.month,
+			financialYear: newIncome.financialYear,
+		}
+		console.log(addIncome)
+		await addIncomes(addIncome)
+		setadd(false)
 	}
 
 	const handleUpdateSubmit = async () => {
@@ -115,6 +138,91 @@ const Income = () => {
 						</span>
 					</div>
 				</section>
+
+				<div className='add-income'>
+					<button onClick={() => setadd(true)}>Add Income</button>
+				</div>
+
+				{add && (
+					<div className="modal-overlay">
+						<div className="modal">
+
+							<h2>Add Expense</h2>
+
+							<input
+								type="date"
+								value={newIncome.date?.split("T")[0]}
+								onChange={(e) =>
+									setnewIncome({ ...newIncome, date: e.target.value })
+								}
+							/>
+
+							<input
+								placeholder="Month"
+								value={newIncome.month}
+								onChange={(e) =>
+									setnewIncome({ ...newIncome, month: e.target.value })
+								}
+							/>
+
+							<input
+								placeholder="Income Type"
+								value={newIncome.incomeType}
+								onChange={(e) =>
+									setnewIncome({ ...newIncome, incomeType: e.target.value })
+								}
+							/>
+
+							<input
+								placeholder="Remarks"
+								value={newIncome.remarks}
+								onChange={(e) =>
+									setnewIncome({ ...newIncome, remarks: e.target.value })
+								}
+							/>
+
+							<input
+								placeholder="Amount"
+								type="number"
+								value={newIncome.amount}
+								onChange={(e) =>
+									setnewIncome({ ...newIncome, amount: e.target.value })
+								}
+							/>
+							<input
+								placeholder="Financial Year"
+								type="text"
+								value={newIncome.financialYear}
+								onChange={(e) =>
+									setnewIncome({ ...newIncome, financialYear: e.target.value })
+								}
+							/>
+						
+							<div className="modal-buttons">
+
+								<button
+									type="button"
+									disabled={loading}
+									onClick={handleaddExpense}
+									className="update-btn"
+								>
+									{loading ? <span className="loader"></span> : "Add"}
+								</button>
+
+								<button
+									type="button"
+									className="cancel-btn"
+									onClick={() => setadd(false)}
+								>
+									Cancel
+								</button>
+
+							</div>
+
+						</div>
+					</div>
+				)}
+
 				{edit && selectedIncome && (
 					<div className="modal-overlay">
 						<div className="modal">

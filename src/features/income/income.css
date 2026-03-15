@@ -275,3 +275,21 @@ margin-top:10px;
 font-size:14px;
 color:#555;
 }
+
+.add-income button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.add-income button:hover {
+  background: #333;
+}

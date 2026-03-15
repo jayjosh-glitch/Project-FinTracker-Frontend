@@ -8,14 +8,23 @@ import { useAuth } from '../auth/Authcontext';
 
 const Expense = () => {
 
-	const { expenseList, glerror, loading, updateExpenses, deleteExpenses } = useFetchExpenses();
+	const { expenseList, glerror, loading, updateExpenses, deleteExpenses, addExpenses } = useFetchExpenses();
 	const [expense, setexpense] = useState([]);
 	const { currentuser } = useAuth();
 	const [edit, setedit] = useState(false)
+	const [add, setadd] = useState(false)
 	const [selectedExpense, setselectedExpense] = useState(null)
 	const [showDeleteModal, setShowDeleteModal] = useState(false)
 	const [expenseToDelete, setExpenseToDelete] = useState(null)
-
+	const [newExpense, setnewExpense] = useState({
+		expenseType: "",
+		amount: 0,
+		date: "",
+		month: "",
+		category: "",
+		description: "",
+		financialYear: ""
+	})
 
 	console.log(expenseList)
 	useEffect(() => {
@@ -44,18 +53,34 @@ const Expense = () => {
 		setselectedExpense(expense)
 	}
 
+	const handleaddExpense = async () => {
+		const addExpense = {
+			date: newExpense.date,
+			expenseType: newExpense.expenseType,
+			description: newExpense.description,
+			amount: Number(newExpense.amount),
+			month: newExpense.month,
+			financialYear: newExpense.financialYear,
+			category: newExpense.category
+		}
+		console.log(addExpense)
+		await addExpenses(addExpense)
+		setadd(false)
+	}
 	const handleUpdateSubmit = async () => {
 		// call update function here with selectedExpense data
 		console.log(selectedExpense)
 		const updatedExpense = {
 			id: selectedExpense.id,
-			date: new Date(selectedExpense.date).toISOString(), expenseType: selectedExpense.expenseType,
+			date: new Date(selectedExpense.date).toISOString(),
+			expenseType: selectedExpense.expenseType,
 			description: selectedExpense.description,
 			amount: selectedExpense.amount,
 			month: selectedExpense.month,
 			financialYear: selectedExpense.financialYear,
 			category: selectedExpense.category
 		}
+
 		await updateExpenses(selectedExpense.id, updatedExpense)
 		setedit(false)
 		// 	await addExpenses(selectedExpense)
@@ -124,6 +149,9 @@ const Expense = () => {
 					</div>
 				</section>
 
+				<div className='add-epxense'>
+					<button onClick={() => setadd(true)}>Add Expense</button>
+				</div>
 
 				{edit && selectedExpense && (
 					<div className="modal-overlay">
@@ -235,6 +263,106 @@ const Expense = () => {
 						</div>
 					</div>
 				)}
+
+				{add && (
+					<div className="modal-overlay">
+						<div className="modal">
+
+							<h2>Add Expense</h2>
+
+							<input
+								type="date"
+								value={newExpense.date?.split("T")[0]}
+								onChange={(e) =>
+									setnewExpense({ ...newExpense, date: e.target.value })
+								}
+							/>
+
+							<input
+								placeholder="Month"
+								value={newExpense.month}
+								onChange={(e) =>
+									setnewExpense({ ...newExpense, month: e.target.value })
+								}
+							/>
+
+							<input
+								placeholder="Expense Type"
+								value={newExpense.expenseType}
+								onChange={(e) =>
+									setnewExpense({ ...newExpense, expenseType: e.target.value })
+								}
+							/>
+
+							<input
+								placeholder="Description"
+								value={newExpense.description}
+								onChange={(e) =>
+									setnewExpense({ ...newExpense, description: e.target.value })
+								}
+							/>
+
+							<input
+								placeholder="Amount"
+								type="number"
+								value={newExpense.amount}
+								onChange={(e) =>
+									setnewExpense({ ...newExpense, amount: e.target.value })
+								}
+							/>
+							<input
+								placeholder="Financial Year"
+								type="text"
+								value={newExpense.financialYear}
+								onChange={(e) =>
+									setnewExpense({ ...newExpense, financialYear: e.target.value })
+								}
+							/>
+							<div>
+								<label htmlFor="category">Category:</label>
+
+								<select
+									id="category"
+									name="category"
+									value={newExpense.category}
+									onChange={(e) => {
+										setnewExpense({ ...newExpense, category: e.target.value })
+									}}
+								>
+									<option value="">Select Category</option>
+									<option value="Food">Food</option>
+									<option value="Health">Health</option>
+									<option value="Utilities">Utilities</option>
+									<option value="Transportation">Transportation</option>
+									<option value="Other">Other</option>
+								</select>
+							</div>
+
+							<div className="modal-buttons">
+
+								<button
+									type="button"
+									disabled={loading}
+									onClick={handleaddExpense}
+									className="update-btn"
+								>
+									{loading ? <span className="loader"></span> : "Add"}
+								</button>
+
+								<button
+									type="button"
+									className="cancel-btn"
+									onClick={() => setadd(false)}
+								>
+									Cancel
+								</button>
+
+							</div>
+
+						</div>
+					</div>
+				)}
+
 			</main>
 		</>
 	);
