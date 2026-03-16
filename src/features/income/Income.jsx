@@ -37,20 +37,20 @@ const Income = () => {
 	}, [currentuser, incomeList]);
 
 	//Adding pagees for expense list to avoid everything on single page
-		const [page, setpage] = useState(1)
-		const itemsPerPage = 8;
-		const startIndex = (page - 1) * itemsPerPage;
-		const endIndex = startIndex + itemsPerPage;
-		const currentIncomeList = income.slice(startIndex, endIndex);
-		const totalPages = Math.ceil(income.length / itemsPerPage);
-		const startRecord = startIndex + 1;
-		const endRecord = Math.min(endIndex, income.length);
+	const [page, setpage] = useState(1)
+	const itemsPerPage = 8;
+	const startIndex = (page - 1) * itemsPerPage;
+	const endIndex = startIndex + itemsPerPage;
+	const currentIncomeList = income.slice(startIndex, endIndex);
+	const totalPages = Math.ceil(income.length / itemsPerPage);
+	const startRecord = startIndex + 1;
+	const endRecord = Math.min(endIndex, income.length);
 
 	const handleEdit = (income) => {
 		setedit(true)
 		setselectedIncome(income)
 	}
-    
+
 	const handleaddExpense = async () => {
 		const addIncome = {
 			date: newIncome.date,
@@ -92,7 +92,7 @@ const Income = () => {
 		<>
 			<Navbar />
 			<main className='income-main'>
-				<h1>Income Page</h1>
+                  <h1>Income Page</h1>
 				{loading && <p>Loading...</p>}
 				<section className='income-section'>
 					<table className='income-table'>
@@ -111,11 +111,11 @@ const Income = () => {
 							{currentIncomeList.map((income, index) => (
 								<tr key={income.id}>
 									<td>{(page - 1) * itemsPerPage + index + 1}</td>
-									<td>{new Date(income.date).toLocaleDateString()}</td>
+									<td>{new Date(income.date).toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
 									<td>{income.month}</td>
 									<td>{income.incomeType}</td>
 									<td>{income.remarks}</td>
-									<td>${income.amount}</td>
+									<td>₹{income.amount}</td>
 									<td><button className='update' onClick={() => handleEdit(income)}>Update</button></td>
 									<td><button className='delete' onClick={() => {
 										setIncomeToDelete(income)
@@ -139,17 +139,18 @@ const Income = () => {
 					</div>
 				</section>
 
-				<div className='add-income'>
-					<button onClick={() => setadd(true)}>Add Income</button>
+				<div className='incomeAdd-container'>
+					<button className="incomeAdd-btn" onClick={() => setadd(true)}>Add Income</button>
 				</div>
 
 				{add && (
-					<div className="modal-overlay">
-						<div className="modal">
+					<div className="incomeModal-overlay">
+						<div className="incomeModal-container">
 
-							<h2>Add Expense</h2>
+							<h2 className="incomeModal-title">Add Income</h2>
 
 							<input
+								className="incomeModal-input"
 								type="date"
 								value={newIncome.date?.split("T")[0]}
 								onChange={(e) =>
@@ -158,6 +159,7 @@ const Income = () => {
 							/>
 
 							<input
+								className="incomeModal-input"
 								placeholder="Month"
 								value={newIncome.month}
 								onChange={(e) =>
@@ -166,6 +168,7 @@ const Income = () => {
 							/>
 
 							<input
+								className="incomeModal-input"
 								placeholder="Income Type"
 								value={newIncome.incomeType}
 								onChange={(e) =>
@@ -174,6 +177,7 @@ const Income = () => {
 							/>
 
 							<input
+								className="incomeModal-input"
 								placeholder="Remarks"
 								value={newIncome.remarks}
 								onChange={(e) =>
@@ -182,6 +186,7 @@ const Income = () => {
 							/>
 
 							<input
+								className="incomeModal-input"
 								placeholder="Amount"
 								type="number"
 								value={newIncome.amount}
@@ -189,7 +194,9 @@ const Income = () => {
 									setnewIncome({ ...newIncome, amount: e.target.value })
 								}
 							/>
+
 							<input
+								className="incomeModal-input"
 								placeholder="Financial Year"
 								type="text"
 								value={newIncome.financialYear}
@@ -197,21 +204,21 @@ const Income = () => {
 									setnewIncome({ ...newIncome, financialYear: e.target.value })
 								}
 							/>
-						
-							<div className="modal-buttons">
+
+							<div className="incomeModal-actions">
 
 								<button
 									type="button"
 									disabled={loading}
 									onClick={handleaddExpense}
-									className="update-btn"
+									className="incomeAddConfirm-btn"
 								>
-									{loading ? <span className="loader"></span> : "Add"}
+									{loading ? <span className="incomeLoader"></span> : "Add"}
 								</button>
 
 								<button
 									type="button"
-									className="cancel-btn"
+									className="incomeCancel-btn"
 									onClick={() => setadd(false)}
 								>
 									Cancel
@@ -224,12 +231,13 @@ const Income = () => {
 				)}
 
 				{edit && selectedIncome && (
-					<div className="modal-overlay">
-						<div className="modal">
+					<div className="incomeModal-overlay">
+						<div className="incomeModal-container">
 
-							<h2>Edit Expense</h2>
+							<h2 className="incomeModal-title">Edit Income</h2>
 
 							<input
+								className="incomeModal-input"
 								type="date"
 								value={selectedIncome.date?.split("T")[0]}
 								onChange={(e) =>
@@ -238,6 +246,7 @@ const Income = () => {
 							/>
 
 							<input
+								className="incomeModal-input"
 								placeholder="Month"
 								value={selectedIncome.month}
 								onChange={(e) =>
@@ -246,6 +255,7 @@ const Income = () => {
 							/>
 
 							<input
+								className="incomeModal-input"
 								placeholder="Income Type"
 								value={selectedIncome.incomeType}
 								onChange={(e) =>
@@ -254,6 +264,7 @@ const Income = () => {
 							/>
 
 							<input
+								className="incomeModal-input"
 								placeholder="Description"
 								value={selectedIncome.remarks}
 								onChange={(e) =>
@@ -262,6 +273,7 @@ const Income = () => {
 							/>
 
 							<input
+								className="incomeModal-input"
 								placeholder="Amount"
 								type="number"
 								value={selectedIncome.amount}
@@ -270,20 +282,20 @@ const Income = () => {
 								}
 							/>
 
-							<div className="modal-buttons">
+							<div className="incomeModal-actions">
 
 								<button
 									type="button"
 									disabled={loading}
 									onClick={handleUpdateSubmit}
-									className="update-btn"
+									className="incomeUpdate-btn"
 								>
-									{loading ? <span className="loader"></span> : "Update"}
+									{loading ? <span className="incomeLoader"></span> : "Update"}
 								</button>
 
 								<button
 									type="button"
-									className="cancel-btn"
+									className="incomeCancel-btn"
 									onClick={() => setedit(false)}
 								>
 									Cancel
@@ -296,33 +308,31 @@ const Income = () => {
 				)}
 
 				{showDeleteModal && incomeToDelete && (
-					<div className="delete-overlay">
-						<div className="delete-modal">
+					<div className="incomeDelete-overlay">
+						<div className="incomeDelete-modal">
 
-							<h3>Confirm Delete</h3>
+							<h3 className="incomeDelete-title">Confirm Delete</h3>
 
-							<p>
-								Are you sure you want to delete this income?
-							</p>
+							<p>Are you sure you want to delete this income?</p>
 
-							<div className="delete-details">
+							<div className="incomeDelete-details">
 								<p><strong>Type:</strong> {incomeToDelete.incomeType}</p>
 								<p><strong>Description:</strong> {incomeToDelete.remarks}</p>
 								<p><strong>Amount:</strong> ${incomeToDelete.amount}</p>
 								<p><strong>Date:</strong> {new Date(incomeToDelete.date).toLocaleDateString()}</p>
 							</div>
 
-							<div className="delete-buttons">
+							<div className="incomeDelete-actions">
 
 								<button
-									className="confirm-delete"
+									className="incomeDelete-confirm"
 									onClick={handleDeleteConfirm}
 								>
 									Delete
 								</button>
 
 								<button
-									className="cancel-delete"
+									className="incomeDelete-cancel"
 									onClick={() => setShowDeleteModal(false)}
 								>
 									Cancel
