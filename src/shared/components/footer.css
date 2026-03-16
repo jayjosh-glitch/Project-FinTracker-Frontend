@@ -1,51 +1,80 @@
+/* ─── Footer ─── */
 .footer {
-  background: #1f2933;
-  color: #d1d5db;
-  padding-top: 50px;
-  margin-top: 60px;
+  background: linear-gradient(90deg, #002E5D 0%, #001A3A 100%);
+  color: #93B8D8;
+  padding: 40px 0 0;
   font-family: Arial, sans-serif;
+  flex-shrink: 0;
 }
 
 .footer-container {
   max-width: 1200px;
-  margin: auto;
-  padding: 0 20px;
-
+  margin: 0 auto;
+  padding: 0 32px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 40px;
 }
 
-.footer-section h2,
+.footer-section h2 {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.2px;
+}
+
 .footer-section h3 {
-  color: white;
-  margin-bottom: 15px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
 }
 
 .footer-section p {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #7AAFD4;
 }
 
 .footer-section ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .footer-section li {
-  margin-bottom: 10px;
-  font-size: 14px;
+  margin-bottom: 8px;
+  font-size: 13px;
   cursor: pointer;
+  color: #7AAFD4;
+  transition: color 0.15s;
 }
 
 .footer-section li:hover {
-  color: #2ecc71;
+  color: #fff;
 }
 
 .footer-bottom {
   text-align: center;
-  padding: 20px;
-  margin-top: 30px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  font-size: 14px;
+  padding: 16px 32px;
+  margin-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12.5px;
+  color: #4A7299;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
 }

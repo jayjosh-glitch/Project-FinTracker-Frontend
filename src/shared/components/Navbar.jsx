@@ -11,10 +11,11 @@ const Navbar = () => {
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="app-logo" className='logo' />
         </div>
         <div className='nav-links'>
-          <Link to='/dashboard/dashboard'>Dashboard</Link>
+          {/* <Link to='/dashboard/dashboard'>Dashboard</Link>
             <Link to='/expense/expense'>Expense</Link>
             <Link to='/income/income'>Income</Link>
-            <Link to='/history/history'>History</Link>
+            <Link to='/history/history'>History</Link> */}
+            <Link to='/profile/profile'>Profile</Link>
             <Link to='/auth/logout'>Logout</Link>
         </div>
     </nav>

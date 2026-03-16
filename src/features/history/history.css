@@ -1,26 +1,24 @@
-/* ─── Page Layout ─── */
+/* ─── Page ─── */
 .history-main {
   padding: 2rem 1.75rem;
   font-family: Arial, sans-serif;
-  min-height: 100vh;
   background: #E8EEF6;
+  min-height: 100%;
 }
 
-/* ─── Page Heading ─── */
+/* ─── Heading ─── */
 .history-main .page-heading {
   text-align: center;
   margin-bottom: 1.75rem;
 }
-
 .history-main .page-heading h1 {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 800;
   color: #0A2463;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.5px;
   display: inline-block;
   position: relative;
 }
-
 .history-main .page-heading h1::after {
   content: '';
   display: block;
@@ -31,21 +29,17 @@
   margin: 6px auto 0;
 }
 
-/* ───────────────────────────
-   FILTER SECTION
-─────────────────────────── */
+/* ─── Filter Section ─── */
 .filter-section {
   max-width: 920px;
   margin: 0 auto 1.5rem;
 }
-
 .filter-container {
   background: #fff;
   border: 1px solid rgba(10, 36, 99, 0.1);
   border-radius: 14px;
   padding: 1.5rem 1.75rem;
 }
-
 .filter-form {
   display: flex;
   align-items: flex-end;
@@ -53,32 +47,27 @@
   flex-wrap: wrap;
 }
 
-/* Month & Financial Year groups */
-.month,
-.financial-year {
+.month, .financial-year {
   display: flex;
   flex-direction: column;
   gap: 6px;
   flex: 1;
   min-width: 180px;
 }
-
-.month label,
-.financial-year label {
+.month label, .financial-year label {
   font-size: 11.5px;
   font-weight: 700;
   color: #5B7BB5;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
-
-.month select,
-.financial-year select {
+.month select, .financial-year select {
   width: 100%;
-  padding: 10px 13px;
+  padding: 10px 36px 10px 13px;
   border: 1.5px solid #C8D8F0;
   border-radius: 8px;
   font-size: 14px;
+  font-family: Arial, sans-serif;
   color: #1A1A2E;
   background: #fff;
   outline: none;
@@ -89,16 +78,12 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235B7BB5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 13px center;
-  padding-right: 36px;
 }
-
-.month select:focus,
-.financial-year select:focus {
+.month select:focus, .financial-year select:focus {
   border-color: #1976D2;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
 }
 
-/* Filter action buttons */
 .filter-actions {
   display: flex;
   align-items: center;
@@ -106,7 +91,6 @@
   flex-wrap: wrap;
   padding-bottom: 1px;
 }
-
 .filter-actions button[type="submit"] {
   background: #1976D2;
   color: #fff;
@@ -138,32 +122,24 @@
 }
 .filter-actions button[type="button"]:hover { background: #F0F4FF; }
 
-/* ───────────────────────────
-   HISTORY SECTION
-─────────────────────────── */
+/* ─── History Section ─── */
 .history-section {
   background: #fff;
   border: 1px solid rgba(10, 36, 99, 0.1);
   border-radius: 14px;
   overflow: hidden;
-  max-width: 1600px;       /* ← only table section has 1600px */
+  max-width: 1600px;
   margin: 0 auto;
 }
 
 .history-section h2 {
-  text-align: center;
-  font-size: 30px;
-  font-weight: 800;
+  font-size: 17px;
+  font-weight: 700;
   color: #0A2463;
-  margin-bottom: 1.75rem;
-  letter-spacing: -0.6px;
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #EEF2FB;
 }
 
-/* Empty state */
 .history-section > p {
   text-align: center;
   padding: 2rem;
@@ -171,24 +147,18 @@
   color: #8899AA;
 }
 
-/* ─── History Table ─── */
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-}
+/* ─── Table ─── */
+.history-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 
 .history-table thead tr {
   background: linear-gradient(90deg, #0A2463, #1565C0);
 }
-
 .history-table th {
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #d5e7f7;
-  letter-spacing: 0.8px;
+  padding: 13px 16px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #90CAF9;
+  letter-spacing: 0.7px;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -204,56 +174,20 @@
   padding: 12px 16px;
   color: #1A1A2E;
   vertical-align: middle;
-  font-size: 1rem;
+  font-size: 13.5px;
   font-weight: 500;
 }
 
 /* ─── Column Alignments ─── */
+.history-table th:nth-child(1), .history-table td:nth-child(1) { text-align: center; color: #9EACC4; font-size: 12px; }
+.history-table th:nth-child(2), .history-table td:nth-child(2) { text-align: center; }
+.history-table th:nth-child(3), .history-table td:nth-child(3) { text-align: left; }
+.history-table th:nth-child(4), .history-table td:nth-child(4) { text-align: center; }
+.history-table th:nth-child(5), .history-table td:nth-child(5) { text-align: left; }
+.history-table th:nth-child(6), .history-table td:nth-child(6) { text-align: right; font-weight: 800; font-size: 14px; font-variant-numeric: tabular-nums; }
 
-/* Sr No — center */
-.history-table th:nth-child(1),
-.history-table td:nth-child(1) {
-  text-align: center;
-}
-
-/* Date — center */
-.history-table th:nth-child(2),
-.history-table td:nth-child(2) {
-  text-align: center;
-}
-
-/* Description/Remarks — left */
-.history-table th:nth-child(3),
-.history-table td:nth-child(3) {
-  text-align: center;
-}
-
-/* Month — center */
-.history-table th:nth-child(4),
-.history-table td:nth-child(4) {
-  text-align: center;
-}
-
-/* Type — left */
-.history-table th:nth-child(5),
-.history-table td:nth-child(5) {
-  text-align: left;
-}
-
-/* Amount — right */
-.history-table th:nth-child(6),
-.history-table td:nth-child(6) {
-  text-align: center;
-}
-
-/* ─── Income / Expense Amount Colors ─── */
-.history-table td.income {
-  color: #1B8A4E;    /* green for income */
-}
-
-.history-table td.expense {
-  color: #C62828;    /* red for expense */
-}
+.history-table td.income { color: #1B8A4E; }
+.history-table td.expense { color: #C62828; }
 
 /* ─── Pagination ─── */
 .pagination {
@@ -264,7 +198,6 @@
   padding: 14px 16px;
   border-top: 1px solid #EEF2FB;
 }
-
 .pagination button {
   background: #fff;
   border: 1px solid #BBCCE8;
@@ -279,15 +212,8 @@
 }
 .pagination button:hover:not(:disabled) { background: #EBF1FF; }
 .pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
+.pagination span { font-size: 13px; color: #6B82A8; min-width: 100px; text-align: center; }
 
-.pagination span {
-  font-size: 13px;
-  color: #6B82A8;
-  min-width: 100px;
-  text-align: center;
-}
-
-/* ─── Table Footer ─── */
 .table-footer {
   text-align: center;
   padding: 8px 16px 14px;
@@ -296,7 +222,7 @@
   border-top: 1px solid #F0F4FF;
 }
 
-/* ─── Error message ─── */
+/* ─── Error ─── */
 .error {
   color: #C62828;
   background: #FFEBEE;
@@ -306,11 +232,8 @@
   margin: 12px 16px;
 }
 
-/* ─── Responsive ─── */
 @media (max-width: 768px) {
   .history-main { padding: 1.25rem 1rem; }
   .filter-form { flex-direction: column; align-items: stretch; }
-  .filter-actions { justify-content: flex-start; }
-  .history-table th,
-  .history-table td { padding: 10px 10px; }
+  .history-table th, .history-table td { padding: 10px 8px; font-size: 12px; }
 }
