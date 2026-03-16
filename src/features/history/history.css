@@ -1,302 +1,316 @@
-/* ===== PAGE BACKGROUND ===== */
-
-.history-main{
-    max-width:1150px;
-    margin:auto;
-    padding:50px 30px;
-    background:#f3f6fb;
-    min-height:100vh;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+/* ─── Page Layout ─── */
+.history-main {
+  padding: 2rem 1.75rem;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: #E8EEF6;
 }
 
-.history-main h1{
-    font-size:32px;
-    font-weight:700;
-    color:#1f2937;
-    margin-bottom:35px;
-
+/* ─── Page Heading ─── */
+.history-main .page-heading {
+  text-align: center;
+  margin-bottom: 1.75rem;
 }
 
-
-
-/* ===== FILTER CARD ===== */
-
-.filter-container{
-    background:linear-gradient(145deg,#ffffff,#f8fbff);
-    border-radius:12px;
-    padding:25px 28px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.07);
-    margin-bottom:35px;
+.history-main .page-heading h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0A2463;
+  letter-spacing: -0.6px;
+  display: inline-block;
+  position: relative;
 }
 
-
-
-/* ===== FILTER FORM ===== */
-
-.filter-form{
-    display:flex;
-    flex-wrap:wrap;
-    gap:22px;
-    align-items:flex-end;
+.history-main .page-heading h1::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: #2979FF;
+  border-radius: 2px;
+  margin: 6px auto 0;
 }
 
+/* ───────────────────────────
+   FILTER SECTION
+─────────────────────────── */
+.filter-section {
+  max-width: 920px;
+  margin: 0 auto 1.5rem;
+}
 
+.filter-container {
+  background: #fff;
+  border: 1px solid rgba(10, 36, 99, 0.1);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+}
 
-/* ===== FILTER LABELS ===== */
+.filter-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
 
+/* Month & Financial Year groups */
 .month,
-.financial-year{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
+.financial-year {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 180px;
 }
 
 .month label,
-.financial-year label{
-    font-size:15px;
-    font-weight:600;
-    color:#374151;
+.financial-year label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5B7BB5;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-
-
-/* ===== SELECT INPUTS ===== */
-
-.filter-form select{
-    padding:10px 14px;
-    border:1px solid #d1d5db;
-    border-radius:7px;
-    font-size:14px;
-    min-width:170px;
-    background:white;
-    outline:none;
-    transition:0.2s;
+.month select,
+.financial-year select {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid #C8D8F0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1A1A2E;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235B7BB5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  padding-right: 36px;
 }
 
-.filter-form select:focus{
-    border-color:#4f8cff;
-    box-shadow:0 0 0 3px rgba(79,140,255,0.15);
+.month select:focus,
+.financial-year select:focus {
+  border-color: #1976D2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
 }
 
-
-
-/* ===== BUTTONS ===== */
-
-.filter-actions{
-    display:flex;
-    align-items:center;
-    gap:12px;
+/* Filter action buttons */
+.filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 1px;
 }
 
-.filter-actions button{
-    padding:10px 18px;
-    border:none;
-    border-radius:7px;
-    font-size:14px;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.2s;
+.filter-actions button[type="submit"] {
+  background: #1976D2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 13.5px;
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.filter-actions button[type="submit"]:hover { background: #1254A1; }
+.filter-actions button[type="submit"]:active { transform: scale(0.98); }
+
+.filter-actions button[type="button"] {
+  background: #fff;
+  color: #555;
+  border: 1.5px solid #C8D8F0;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 13.5px;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: background 0.12s;
+  white-space: nowrap;
+}
+.filter-actions button[type="button"]:hover { background: #F0F4FF; }
+
+/* ───────────────────────────
+   HISTORY SECTION
+─────────────────────────── */
+.history-section {
+  background: #fff;
+  border: 1px solid rgba(10, 36, 99, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  max-width: 1600px;       /* ← only table section has 1600px */
+  margin: 0 auto;
 }
 
-.filter-actions button[type="submit"]{
-    background:#4f8cff;
-    color:white;
+.history-section h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: #0A2463;
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.6px;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.filter-actions button[type="submit"]:hover{
-    background:#3c73d8;
+/* Empty state */
+.history-section > p {
+  text-align: center;
+  padding: 2rem;
+  font-size: 14px;
+  color: #8899AA;
 }
 
-.filter-actions button[type="button"]{
-    background:#e5e7eb;
+/* ─── History Table ─── */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
 }
 
-.filter-actions button[type="button"]:hover{
-    background:#d1d5db;
+.history-table thead tr {
+  background: linear-gradient(90deg, #0A2463, #1565C0);
 }
 
-
-
-/* ===== HISTORY CARD ===== */
-
-.history-section{
-    background:white;
-    border-radius:12px;
-    padding:28px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.06);
+.history-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #d5e7f7;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.history-section h2{
-    margin-bottom:20px;
-    font-size:22px;
-    font-weight:700;
-    color:#1f2937;
-    text-align: center;
+.history-table tbody tr {
+  border-bottom: 1px solid #EEF2FB;
+  transition: background 0.12s;
+}
+.history-table tbody tr:last-child { border-bottom: none; }
+.history-table tbody tr:hover { background: #F0F4FF; }
+
+.history-table td {
+  padding: 12px 16px;
+  color: #1A1A2E;
+  vertical-align: middle;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
+/* ─── Column Alignments ─── */
 
-
-/* ===== TABLE ===== */
-
-.history-table{
-    width:100%;
-    border-collapse:collapse;
-    font-size:15px;
+/* Sr No — center */
+.history-table th:nth-child(1),
+.history-table td:nth-child(1) {
+  text-align: center;
 }
 
-
-
-/* ===== TABLE HEADER ===== */
-
-.history-table thead{
-    background:linear-gradient(90deg,#4f8cff,#6fa6ff);
+/* Date — center */
+.history-table th:nth-child(2),
+.history-table td:nth-child(2) {
+  text-align: center;
 }
 
-.history-table th{
-    text-align:left;
-    padding:14px 16px;
-    font-weight:600;
-    color:white;
-    font-size:14px;
+/* Description/Remarks — left */
+.history-table th:nth-child(3),
+.history-table td:nth-child(3) {
+  text-align: center;
 }
 
-
-
-/* ===== TABLE BODY ===== */
-
-.history-table td{
-    padding:14px 16px;
-    border-bottom:1px solid #f1f3f6;
-    color:#374151;
+/* Month — center */
+.history-table th:nth-child(4),
+.history-table td:nth-child(4) {
+  text-align: center;
 }
 
-
-
-/* ===== ROW HOVER ===== */
-
-.history-table tbody tr{
-    transition:0.2s;
+/* Type — left */
+.history-table th:nth-child(5),
+.history-table td:nth-child(5) {
+  text-align: left;
 }
 
-.history-table tbody tr:hover{
-    background:#f8fbff;
+/* Amount — right */
+.history-table th:nth-child(6),
+.history-table td:nth-child(6) {
+  text-align: center;
 }
 
-
-
-/* ===== AMOUNT ALIGNMENT ===== */
-
-.history-table th:last-child,
-.history-table td:last-child{
-    text-align:right;
+/* ─── Income / Expense Amount Colors ─── */
+.history-table td.income {
+  color: #1B8A4E;    /* green for income */
 }
 
-
-
-/* ===== FINANCE COLORS ===== */
-
-.income{
-    font-weight:700;
-    color:#16a34a;
+.history-table td.expense {
+  color: #C62828;    /* red for expense */
 }
 
-.expense{
-    font-weight:700;
-    color:#dc2626;
-}
-
-
-
-/* ===== ERROR MESSAGE ===== */
-
-.error{
-    color:#dc2626;
-    margin-top:12px;
-    font-size:14px;
-}
-
-
-
-/* ===== LOADING TEXT ===== */
-
-.month p{
-    font-size:13px;
-    color:#6b7280;
-}
-
-
-
-/* ===== MOBILE RESPONSIVE ===== */
-
-@media (max-width:768px){
-
-    .filter-form{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .filter-form select{
-        width:100%;
-    }
-
-    .filter-actions{
-        width:100%;
-    }
-
-    .filter-actions button{
-        flex:1;
-    }
-
-    .history-main{
-        padding:30px 18px;
-    }
-
-    .history-table th,
-    .history-table td{
-        padding:11px;
-        font-size:13px;
-    }
-
-}
-
+/* ─── Pagination ─── */
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid #EEF2FB;
 }
 
 .pagination button {
-  padding: 8px 18px;
-  border: none;
-  border-radius: 6px;
-  background-color: #2f80ed;
-  color: white;
-  font-size: 14px;
+  background: #fff;
+  border: 1px solid #BBCCE8;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0A2463;
   cursor: pointer;
-  transition: 0.2s ease;
+  font-family: Arial, sans-serif;
+  transition: background 0.12s;
 }
-
-.pagination button:hover:not(:disabled) {
-  background-color: #1c63c9;
-  transform: translateY(-1px);
-}
-
-.pagination button:disabled {
-  background-color: #c7c7c7;
-  cursor: not-allowed;
-}
+.pagination button:hover:not(:disabled) { background: #EBF1FF; }
+.pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
 
 .pagination span {
-  font-weight: 500;
-  color: #444;
+  font-size: 13px;
+  color: #6B82A8;
+  min-width: 100px;
+  text-align: center;
 }
 
-.table-footer{
-display:flex;
-justify-content:flex-end;
-margin-top:10px;
-font-size:14px;
-color:#555;
+/* ─── Table Footer ─── */
+.table-footer {
+  text-align: center;
+  padding: 8px 16px 14px;
+  font-size: 12px;
+  color: #A0B0C8;
+  border-top: 1px solid #F0F4FF;
+}
+
+/* ─── Error message ─── */
+.error {
+  color: #C62828;
+  background: #FFEBEE;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  margin: 12px 16px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .history-main { padding: 1.25rem 1rem; }
+  .filter-form { flex-direction: column; align-items: stretch; }
+  .filter-actions { justify-content: flex-start; }
+  .history-table th,
+  .history-table td { padding: 10px 10px; }
 }

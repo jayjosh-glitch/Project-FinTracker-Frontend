@@ -70,7 +70,9 @@ const Hisotry = () => {
 		<>
 			<Navbar />
 			<main className='history-main'>
-				<h1>History Page</h1>
+				<div className='page-heading'>
+					<h1>History</h1>
+				</div>
 				<section className='filter-section'>
 					<div className='filter-container'>
 						<form className="filter-form" onSubmit={handleFilterSubmit}>
@@ -161,7 +163,7 @@ const Hisotry = () => {
 					</div>
 					<div className="table-footer">
 						<span>
-							Showing {startRecord}–{endRecord} of {userFinalList.length} 
+							Showing {startRecord}–{endRecord} of {userFinalList.length}
 						</span>
 					</div>
 				</section>

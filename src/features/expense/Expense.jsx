@@ -95,7 +95,7 @@ const Expense = () => {
 		<>
 			<Navbar />
 			<main className='expense-main'>
-				<h1>Expense Page</h1>
+					<h1>Expense Page</h1>
 				{loading && <p>Loading...</p>}
 				<section className='expense-section'>
 					<table className='expense-table'>
@@ -114,11 +114,11 @@ const Expense = () => {
 							{currentExpenseList.map((expense, index) => (
 								<tr key={expense.id}>
 									<td>{(page - 1) * itemsPerPage + index + 1}</td>
-									<td>{new Date(expense.date).toLocaleDateString()}</td>
+									<td>{new Date(expense.date).toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
 									<td>{expense.month}</td>
 									<td>{expense.expenseType}</td>
 									<td>{expense.description}</td>
-									<td>${expense.amount}</td>
+									<td>₹{expense.amount}</td>
 									<td><button className='update' onClick={() => handleEdit(expense)} >Update</button></td>
 									<td><button
 										className="delete"
@@ -149,17 +149,18 @@ const Expense = () => {
 					</div>
 				</section>
 
-				<div className='add-epxense'>
-					<button onClick={() => setadd(true)}>Add Expense</button>
+				<div className='expenseAdd-container'>
+					<button className="expenseAdd-btn" onClick={() => setadd(true)}>Add Expense</button>
 				</div>
 
 				{edit && selectedExpense && (
-					<div className="modal-overlay">
-						<div className="modal">
+					<div className="expenseModal-overlay">
+						<div className="expenseModal-container">
 
-							<h2>Edit Expense</h2>
+							<h2 className="expenseModal-title">Edit Expense</h2>
 
 							<input
+								className="expenseModal-input"
 								type="date"
 								value={selectedExpense.date?.split("T")[0]}
 								onChange={(e) =>
@@ -168,6 +169,7 @@ const Expense = () => {
 							/>
 
 							<input
+								className="expenseModal-input"
 								placeholder="Month"
 								value={selectedExpense.month}
 								onChange={(e) =>
@@ -176,6 +178,7 @@ const Expense = () => {
 							/>
 
 							<input
+								className="expenseModal-input"
 								placeholder="Expense Type"
 								value={selectedExpense.expenseType}
 								onChange={(e) =>
@@ -184,6 +187,7 @@ const Expense = () => {
 							/>
 
 							<input
+								className="expenseModal-input"
 								placeholder="Description"
 								value={selectedExpense.description}
 								onChange={(e) =>
@@ -192,6 +196,7 @@ const Expense = () => {
 							/>
 
 							<input
+								className="expenseModal-input"
 								placeholder="Amount"
 								type="number"
 								value={selectedExpense.amount}
@@ -200,20 +205,20 @@ const Expense = () => {
 								}
 							/>
 
-							<div className="modal-buttons">
+							<div className="expenseModal-actions">
 
 								<button
 									type="button"
 									disabled={loading}
 									onClick={handleUpdateSubmit}
-									className="update-btn"
+									className="expenseUpdate-btn"
 								>
-									{loading ? <span className="loader"></span> : "Update"}
+									{loading ? <span className="expenseLoader"></span> : "Update"}
 								</button>
 
 								<button
 									type="button"
-									className="cancel-btn"
+									className="expenseCancel-btn"
 									onClick={() => setedit(false)}
 								>
 									Cancel
@@ -226,33 +231,33 @@ const Expense = () => {
 				)}
 
 				{showDeleteModal && expenseToDelete && (
-					<div className="delete-overlay">
-						<div className="delete-modal">
+					<div className="expenseDelete-overlay">
+						<div className="expenseDelete-modal">
 
-							<h3>Confirm Delete</h3>
+							<h3 className="expenseDelete-title">Confirm Delete</h3>
 
-							<p>
+							<p className="expenseDelete-text">
 								Are you sure you want to delete this expense?
 							</p>
 
-							<div className="delete-details">
+							<div className="expenseDelete-details">
 								<p><strong>Type:</strong> {expenseToDelete.expenseType}</p>
 								<p><strong>Description:</strong> {expenseToDelete.description}</p>
 								<p><strong>Amount:</strong> ${expenseToDelete.amount}</p>
 								<p><strong>Date:</strong> {new Date(expenseToDelete.date).toLocaleDateString()}</p>
 							</div>
 
-							<div className="delete-buttons">
+							<div className="expenseDelete-actions">
 
 								<button
-									className="confirm-delete"
+									className="expenseDelete-confirm"
 									onClick={handleDeleteConfirm}
 								>
 									Delete
 								</button>
 
 								<button
-									className="cancel-delete"
+									className="expenseDelete-cancel"
 									onClick={() => setShowDeleteModal(false)}
 								>
 									Cancel
@@ -265,12 +270,13 @@ const Expense = () => {
 				)}
 
 				{add && (
-					<div className="modal-overlay">
-						<div className="modal">
+					<div className="expenseModal-overlay">
+						<div className="expenseModal-container">
 
-							<h2>Add Expense</h2>
+							<h2 className="expenseModal-title">Add Expense</h2>
 
 							<input
+								className="expenseModal-input"
 								type="date"
 								value={newExpense.date?.split("T")[0]}
 								onChange={(e) =>
@@ -279,6 +285,7 @@ const Expense = () => {
 							/>
 
 							<input
+								className="expenseModal-input"
 								placeholder="Month"
 								value={newExpense.month}
 								onChange={(e) =>
@@ -287,6 +294,7 @@ const Expense = () => {
 							/>
 
 							<input
+								className="expenseModal-input"
 								placeholder="Expense Type"
 								value={newExpense.expenseType}
 								onChange={(e) =>
@@ -295,6 +303,7 @@ const Expense = () => {
 							/>
 
 							<input
+								className="expenseModal-input"
 								placeholder="Description"
 								value={newExpense.description}
 								onChange={(e) =>
@@ -303,6 +312,7 @@ const Expense = () => {
 							/>
 
 							<input
+								className="expenseModal-input"
 								placeholder="Amount"
 								type="number"
 								value={newExpense.amount}
@@ -310,7 +320,9 @@ const Expense = () => {
 									setnewExpense({ ...newExpense, amount: e.target.value })
 								}
 							/>
+
 							<input
+								className="expenseModal-input"
 								placeholder="Financial Year"
 								type="text"
 								value={newExpense.financialYear}
@@ -318,10 +330,12 @@ const Expense = () => {
 									setnewExpense({ ...newExpense, financialYear: e.target.value })
 								}
 							/>
-							<div>
-								<label htmlFor="category">Category:</label>
+
+							<div className='expenseModal-category'>
+								<label className="expenseModal-label" htmlFor="category">Category</label>
 
 								<select
+									className="expenseModal-select"
 									id="category"
 									name="category"
 									value={newExpense.category}
@@ -337,28 +351,10 @@ const Expense = () => {
 									<option value="Other">Other</option>
 								</select>
 							</div>
-
-							<div className="modal-buttons">
-
-								<button
-									type="button"
-									disabled={loading}
-									onClick={handleaddExpense}
-									className="update-btn"
-								>
-									{loading ? <span className="loader"></span> : "Add"}
-								</button>
-
-								<button
-									type="button"
-									className="cancel-btn"
-									onClick={() => setadd(false)}
-								>
-									Cancel
-								</button>
-
+							<div className="add-action">
+								<button className="cancel-btn" onClick={() => { setadd(false) }}>Cancel</button>
+								<button className="save-btn" onClick={handleaddExpense}>Save Expense</button>
 							</div>
-
 						</div>
 					</div>
 				)}
