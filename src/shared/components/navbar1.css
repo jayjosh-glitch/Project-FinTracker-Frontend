@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 32px;
-  height: 60px;
+  height: 70px;
   font-family: Arial, sans-serif;
   background: linear-gradient(90deg, #1A5FA8 0%, #002E5D 50%, #002E5D 100%);
   color: white;
@@ -28,8 +28,8 @@
 }
 
 .logo {
-  width: 32px;
-  height: 32px;
+  width: 60px;
+  height: 60px;
   border-radius: 6px;
 }
 
