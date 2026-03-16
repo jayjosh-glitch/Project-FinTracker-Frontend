@@ -6,6 +6,8 @@ import Navbar from '../../shared/components/Navbar'
 import MonthlyFinanceChart from '../dashboard/MonthlyFinanceChart'
 import ExpensePieChart from '../dashboard/ExpensePieChart'
 import '../dashboard/dashboard.css';
+import Sidebar from '../../shared/components/Sidebar.jsx';
+import Layout from '../../shared/components/Layout.jsx';
 
 const Dashboard = () => {
 
@@ -38,8 +40,8 @@ const Dashboard = () => {
 
     return (
         <>
-            <Navbar />
-            <div className='dashboard-container'>
+        <Layout>
+             <div className='dashboard-container'>
                 <h2>Financial Overview</h2>
                 <div className="chart-card">
                     <h2>Yearly Chart</h2>
@@ -50,6 +52,9 @@ const Dashboard = () => {
                     <ExpensePieChart expenseCategory={expenseCategory} />
                 </div>
             </div>
+        </Layout>
+           
+
         </>
 
     )

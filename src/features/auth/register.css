@@ -1,115 +1,109 @@
+/* ─── Register Page ─── */
 .main-container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #E8EEF6 0%, #C8D8F0 100%);
+  font-family: Arial, sans-serif;
+  padding: 2rem;
 }
 
-/* Register card container */
 .register-section {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    max-width: 450px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 46, 93, 0.12);
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid rgba(10, 36, 99, 0.08);
 }
 
-/* Heading */
 .register-section h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #1e3a8a;
+  text-align: center;
+  margin-bottom: 28px;
+  color: #0A2463;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
 }
 
-/* Form layout */
 .register-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* Label styling */
 .register-form label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1e40af;
-    margin-bottom: 5px;
-    display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5B7BB5;
+  margin-bottom: 5px;
+  display: block;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-/* Input styling */
 .register-form input {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #93c5fd;
-    outline: none;
-    transition: 0.3s ease;
-    font-size: 14px;
+  width: 100%;
+  padding: 10px 13px;
+  border-radius: 8px;
+  border: 1.5px solid #C8D8F0;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #1A1A2E;
+  box-sizing: border-box;
 }
-
-/* Input focus */
 .register-form input:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  border-color: #1976D2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
 }
 
-/* Button styling */
 .register-form button {
-    padding: 12px;
-    margin-top: 10px;
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s ease;
+  padding: 12px;
+  margin-top: 6px;
+  background: #002E5D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.register-form button:hover { background: #1565C0; }
+.register-form button:active { transform: scale(0.98); }
 
-/* Button hover */
-.register-form button:hover {
-    background-color: #2563eb;
-}
-
-/* Button active */
-.register-form button:active {
-    transform: scale(0.98);
-}
-
-/* Error message styling */
 .error {
-    display: block;
-    margin-top: 5px;
-    font-size: 13px;
-    color: #dc2626;
-    font-weight: 500;
+  display: block;
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: #C62828;
+  font-weight: 500;
 }
 
-/* Success message alternative (optional if you want) */
 .success {
-    color: #16a34a;
-    font-size: 14px;
-    font-weight: 500;
-    margin-top: 10px;
+  color: #1B8A4E;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 8px;
 }
 
 .loader {
   width: 18px;
   height: 18px;
-  border: 3px solid #ffffff;
-  border-top: 3px solid transparent;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
   border-radius: 50%;
   display: inline-block;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.65s linear infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+@keyframes spin { to { transform: rotate(360deg); } }

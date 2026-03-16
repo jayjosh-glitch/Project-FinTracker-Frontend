@@ -1,21 +1,36 @@
-/* ─── Page Layout ─── */
-.income-main {
-  padding: 2rem 1.75rem;
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-  background: #E8EEF6;
+/* ─── Shared Variables ─── */
+:root {
+  --primary: #0A2463;
+  --primary-mid: #1565C0;
+  --accent: #2979FF;
+  --green: #2E7D32;
+  --green-dark: #1B5E20;
+  --red: #D32F2F;
+  --red-dark: #B71C1C;
+  --blue-btn: #1976D2;
+  --blue-btn-dark: #1254A1;
+  --bg-page: #E8EEF6;
+  --font: Arial, sans-serif;
 }
 
-/* ─── Heading — bold with blue underline accent ─── */
+/* ─── Page ─── */
+.income-main {
+  padding: 2rem 1.75rem;
+  font-family: var(--font);
+  background: var(--bg-page);
+  min-height: 100%;
+}
+
+/* ─── Heading ─── */
 .income-main h1 {
   text-align: center;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 800;
-  color: #0A2463;
+  color: var(--primary);
   margin-bottom: 1.75rem;
-  letter-spacing: -0.6px;
-  position: relative;
+  letter-spacing: -0.5px;
   display: inline-block;
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -24,12 +39,12 @@
   display: block;
   width: 48px;
   height: 3px;
-  background: #2979FF;
+  background: var(--accent);
   border-radius: 2px;
   margin: 6px auto 0;
 }
 
-/* ─── Table Card ─── */
+/* ─── Table Section ─── */
 .income-section {
   background: #fff;
   border: 1px solid rgba(10, 36, 99, 0.1);
@@ -43,15 +58,14 @@
 .income-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 
 .income-table thead tr {
-  background: linear-gradient(90deg, #0A2463, #1565C0);
+  background: linear-gradient(90deg, var(--primary), var(--primary-mid));
 }
 .income-table th {
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #d5e7f7;
-  letter-spacing: 0.8px;
+  padding: 13px 16px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #90CAF9;
+  letter-spacing: 0.7px;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -67,89 +81,48 @@
   padding: 12px 16px;
   color: #1A1A2E;
   vertical-align: middle;
-  font-size: 1rem;
+  font-size: 13.5px;
   font-weight: 500;
 }
-.income-table td:first-child { color: #9EACC4; font-size: 12px; font-weight: 600; }
 
 /* ─── Column Alignments ─── */
+.income-table th:nth-child(1), .income-table td:nth-child(1) { text-align: center; color: #9EACC4; font-size: 12px; }
+.income-table th:nth-child(2), .income-table td:nth-child(2) { text-align: center; }
+.income-table th:nth-child(3), .income-table td:nth-child(3) { text-align: center; }
+.income-table th:nth-child(4), .income-table td:nth-child(4) { text-align: left; }
+.income-table th:nth-child(5), .income-table td:nth-child(5) { text-align: left; }
+.income-table th:nth-child(6), .income-table td:nth-child(6) { text-align: right; font-weight: 800; color: #1B8A4E; font-size: 14px; font-variant-numeric: tabular-nums; }
+.income-table th:nth-child(7), .income-table td:nth-child(7),
+.income-table th:nth-child(8), .income-table td:nth-child(8) { text-align: center; }
 
-/* Sr No — center */
-.income-table th:nth-child(1),
-.income-table td:nth-child(1) {
-  text-align: center;
-}
-
-/* Date — center */
-.income-table th:nth-child(2),
-.income-table td:nth-child(2) {
-  text-align: center;
-}
-
-/* Month — center */
-.income-table th:nth-child(3),
-.income-table td:nth-child(3) {
-  text-align: center;
-}
-
-/* Income Type — left (default, explicit) */
-.income-table th:nth-child(4),
-.income-table td:nth-child(4) {
-  text-align: center;
-}
-
-/* Remarks — left */
-.income-table th:nth-child(5),
-.income-table td:nth-child(5) {
-  text-align: center;
-}
-
-/* Amount — right */
-.income-table th:nth-child(6),
-.income-table td:nth-child(6) {
-  text-align: center;
-}
-
-/* Action buttons — center */
-.income-table th:nth-child(7),
-.income-table td:nth-child(7),
-.income-table th:nth-child(8),
-.income-table td:nth-child(8) {
-  text-align: center;
-}
-/* Amount in green */
-.income-table td:nth-child(6) {
-  font-weight: 800;
-  color: #1B8A4E;
-  font-size: 14px;
-}
-
-/* ─── Table Action Buttons ─── */
+/* ─── Action Buttons ─── */
 .update {
-  background: #1976D2;
+  background: var(--blue-btn);
   color: #fff;
   border: none;
   border-radius: 6px;
   padding: 5px 14px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font);
   cursor: pointer;
   transition: background 0.15s;
 }
-.update:hover { background: #1254A1; }
+.update:hover { background: var(--blue-btn-dark); }
 
 .delete {
-  background: #D32F2F;
+  background: var(--red);
   color: #fff;
   border: none;
   border-radius: 6px;
   padding: 5px 14px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font);
   cursor: pointer;
   transition: background 0.15s;
 }
-.delete:hover { background: #B71C1C; }
+.delete:hover { background: var(--red-dark); }
 
 /* ─── Pagination ─── */
 .pagination {
@@ -167,8 +140,9 @@
   padding: 6px 18px;
   font-size: 13px;
   font-weight: 600;
-  color: #0A2463;
+  color: var(--primary);
   cursor: pointer;
+  font-family: var(--font);
   transition: background 0.12s;
 }
 .pagination button:hover:not(:disabled) { background: #EBF1FF; }
@@ -183,38 +157,41 @@
   border-top: 1px solid #F0F4FF;
 }
 
-/* ─── Add Income Button — centered, green ─── */
+/* ─── Add Button ─── */
 .incomeAdd-container {
   display: flex;
   justify-content: center;
   margin: 1.5rem auto 0;
-  max-width: 920px;
+  max-width: 1600px;
 }
 .incomeAdd-btn {
-  background: #2E7D32;
+  background: var(--green);
   color: #fff;
   border: none;
   border-radius: 9px;
   padding: 11px 32px;
   font-size: 14px;
   font-weight: 700;
+  font-family: var(--font);
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
 }
-.incomeAdd-btn:hover { background: #1B5E20; }
+.incomeAdd-btn:hover { background: var(--green-dark); }
 .incomeAdd-btn:active { transform: scale(0.98); }
 
 /* ─── Modal Overlay ─── */
-.incomeModal-overlay {
+.incomeModal-overlay,
+.incomeDelete-overlay {
   position: fixed;
   inset: 0;
   background: rgba(5, 15, 35, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 200;
   animation: fadeIn 0.18s ease;
 }
+
 .incomeModal-container {
   background: #fff;
   border-radius: 14px;
@@ -226,18 +203,21 @@
   gap: 12px;
   animation: slideUp 0.2s ease;
 }
+
 .incomeModal-title {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 800;
-  color: #0A2463;
+  color: var(--primary);
   margin-bottom: 2px;
 }
+
 .incomeModal-input {
   width: 100%;
   padding: 10px 13px;
   border: 1.5px solid #C8D8F0;
   border-radius: 8px;
   font-size: 14px;
+  font-family: var(--font);
   color: #1A1A2E;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
@@ -245,21 +225,22 @@
 }
 .incomeModal-input::placeholder { color: #A0B0C8; }
 .incomeModal-input:focus {
-  border-color: #1976D2;
+  border-color: var(--blue-btn);
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
 }
+
 .incomeModal-actions { display: flex; gap: 10px; margin-top: 4px; }
 
-/* Add confirm — Green */
 .incomeAddConfirm-btn {
   flex: 1;
-  background: #2E7D32;
+  background: var(--green);
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 11px;
   font-size: 14px;
   font-weight: 700;
+  font-family: var(--font);
   cursor: pointer;
   min-height: 42px;
   display: flex;
@@ -267,19 +248,19 @@
   justify-content: center;
   transition: background 0.15s;
 }
-.incomeAddConfirm-btn:hover:not(:disabled) { background: #1B5E20; }
+.incomeAddConfirm-btn:hover:not(:disabled) { background: var(--green-dark); }
 .incomeAddConfirm-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* Update — Blue */
 .incomeUpdate-btn {
   flex: 1;
-  background: #1976D2;
+  background: var(--blue-btn);
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 11px;
   font-size: 14px;
   font-weight: 700;
+  font-family: var(--font);
   cursor: pointer;
   min-height: 42px;
   display: flex;
@@ -287,10 +268,9 @@
   justify-content: center;
   transition: background 0.15s;
 }
-.incomeUpdate-btn:hover:not(:disabled) { background: #1254A1; }
+.incomeUpdate-btn:hover:not(:disabled) { background: var(--blue-btn-dark); }
 .incomeUpdate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* Cancel — neutral */
 .incomeCancel-btn {
   flex: 1;
   background: #fff;
@@ -300,33 +280,13 @@
   padding: 11px;
   font-size: 14px;
   font-weight: 600;
+  font-family: var(--font);
   cursor: pointer;
   transition: background 0.12s;
 }
 .incomeCancel-btn:hover { background: #F0F4FF; }
 
-/* ─── Loader ─── */
-.incomeLoader {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.65s linear infinite;
-}
-
 /* ─── Delete Modal ─── */
-.incomeDelete-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(5, 15, 35, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  animation: fadeIn 0.18s ease;
-}
 .incomeDelete-modal {
   background: #fff;
   border-radius: 14px;
@@ -338,7 +298,7 @@
   gap: 12px;
   animation: slideUp 0.2s ease;
 }
-.incomeDelete-title { font-size: 18px; font-weight: 800; color: #C62828; }
+.incomeDelete-title { font-size: 17px; font-weight: 800; color: #C62828; }
 .incomeDelete-modal > p { font-size: 14px; color: #555; }
 .incomeDelete-details {
   background: #F5F8FF;
@@ -350,23 +310,23 @@
   gap: 6px;
 }
 .incomeDelete-details p { font-size: 13px; color: #444; }
-.incomeDelete-details strong { color: #0A2463; font-weight: 700; }
+.incomeDelete-details strong { color: var(--primary); font-weight: 700; }
 .incomeDelete-actions { display: flex; gap: 10px; margin-top: 4px; }
 
-/* Delete — Red */
 .incomeDelete-confirm {
   flex: 1;
-  background: #D32F2F;
+  background: var(--red);
   color: #fff;
   border: none;
   border-radius: 8px;
   padding: 11px;
   font-size: 14px;
   font-weight: 700;
+  font-family: var(--font);
   cursor: pointer;
   transition: background 0.15s;
 }
-.incomeDelete-confirm:hover { background: #B71C1C; }
+.incomeDelete-confirm:hover { background: var(--red-dark); }
 
 .incomeDelete-cancel {
   flex: 1;
@@ -377,10 +337,22 @@
   padding: 11px;
   font-size: 14px;
   font-weight: 600;
+  font-family: var(--font);
   cursor: pointer;
   transition: background 0.12s;
 }
 .incomeDelete-cancel:hover { background: #F0F4FF; }
+
+/* ─── Loader ─── */
+.incomeLoader {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
 
 /* ─── Error ─── */
 .error {
@@ -400,9 +372,8 @@
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ─── Responsive ─── */
 @media (max-width: 640px) {
   .income-main { padding: 1.25rem 1rem; }
   .income-section { max-width: 100%; }
-  .income-table th, .income-table td { padding: 10px 10px; }
+  .income-table th, .income-table td { padding: 10px 8px; font-size: 12px; }
 }

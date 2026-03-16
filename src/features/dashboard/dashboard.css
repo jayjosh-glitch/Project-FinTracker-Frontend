@@ -1,48 +1,65 @@
-/* Dashboard container */
-
+/* ─── Dashboard Container ─── */
 .dashboard-container {
-  padding: 30px;
-  background: linear-gradient(135deg, #f8fafc, #eef2ff);
-  min-height: 100vh;
-  display:flex;
+  padding: 2rem 1.75rem;
+  background: #E8EEF6;
+  min-height: 100%;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 24px;
+  font-family: Arial, sans-serif;
 }
 
-.dashboard-container h2 {
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 25px;
-  color: #1e293b;
+/* ─── Page Heading ─── */
+.dashboard-container > h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0A2463;
   text-align: center;
+  width: 100%;
+  margin: 0;
+  letter-spacing: -0.5px;
+  position: relative;
+  display: inline-block;
 }
 
+.dashboard-container > h2::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: #2979FF;
+  border-radius: 2px;
+  margin: 6px auto 0;
+}
+
+/* ─── Chart Card ─── */
 .chart-card {
-  width: 1000px;
-  max-width: 100%;
-  background: white;
+  width: 100%;
+  max-width: 1000px;
+  background: #fff;
   border-radius: 14px;
   padding: 25px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  margin-top: 100px;
-  margin-left: 200px;
+  border: 1px solid rgba(10, 36, 99, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
 }
-.chart-card h2{
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 25px;
-  color: #1e293b;
-  text-align: center;
-}
-/* subtle hover */
 
 .chart-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
-/* chart container fix */
+.chart-card h2,
+.chart-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #0A2463;
+  text-align: center;
+}
 
+/* ─── Recharts ─── */
 .recharts-responsive-container {
-  font-size: 14px;
+  font-size: 13px;
+  font-family: Arial, sans-serif;
 }

@@ -1,67 +1,63 @@
+/* ─── Navbar ─── */
 .nav-bar {
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(90deg, #2563eb, #3b82f6);
-    color: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  height: 60px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(90deg, #1A5FA8 0%, #002E5D 50%, #002E5D 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  z-index: 50;
 }
 
-/* Title + Logo */
+/* ─── Title + Logo ─── */
 .title-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .title-logo h1 {
-    font-size: 2rem;
-    font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #fff;
 }
 
 .logo {
-    width: 35px;
-    height: 35px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
 }
 
-/* Links container */
+/* ─── Nav Links ─── */
 .nav-links {
-    display: flex;
-    gap: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Links */
 .nav-links a {
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-    font-size: 1.25rem;
-    position: relative;
-    padding: 10px 0;
-    transition: 0.5s;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  position: relative;
+  transition: background 0.2s, color 0.2s;
 }
 
-/* Hover effect */
 .nav-links a:hover {
-    color: #e0f2fe;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
 }
 
-/* Animated underline */
-.nav-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0%;
-    height: 2px;
-    background: white;
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
+/* Logout link — subtle red tint on hover */
+.nav-links a[href*="logout"]:hover {
+  background: rgba(211, 47, 47, 0.25);
+  color: #ffaaaa;
 }

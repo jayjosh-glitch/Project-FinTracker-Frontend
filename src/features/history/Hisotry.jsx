@@ -5,6 +5,8 @@ import Navbar from '../../shared/components/Navbar';
 import { useFetchIncomes } from '../../shared/hooks/useFetchIncomes';
 import { useState } from 'react';
 import '../history/history.css';
+import Sidebar from '../../shared/components/Sidebar';
+import Layout from '../../shared/components/Layout';
 
 const Hisotry = () => {
 
@@ -68,8 +70,7 @@ const Hisotry = () => {
 
 	return (
 		<>
-			<Navbar />
-			<main className='history-main'>
+			<Layout><main className='history-main'>
 				<div className='page-heading'>
 					<h1>History</h1>
 				</div>
@@ -167,7 +168,8 @@ const Hisotry = () => {
 						</span>
 					</div>
 				</section>
-			</main >
+			</main ></Layout>
+
 		</>
 	);
 };
