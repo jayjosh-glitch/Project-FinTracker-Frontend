@@ -157,8 +157,8 @@ Protected routes accessible
 
 ## 📝 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is personal and proprietary. All rights reserved.
 
 ---
 
-⭐ If you found this project helpful — consider giving it a star on GitHub!
+
