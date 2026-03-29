@@ -9,11 +9,11 @@ import {
   CartesianGrid
 } from "recharts";
 
-const MonthlyFinanceChart = ({ monthlyData }) => {
+const MonthlyFinanceChart = ({ sortedData }) => {
 
   return (
     <ResponsiveContainer width="100%" height={500}>
-      <BarChart data={monthlyData} barGap={8}>
+      <BarChart data={sortedData} barGap={8}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
 
         <XAxis

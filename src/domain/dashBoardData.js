@@ -45,11 +45,14 @@ const incomeYear = (incomeList) => {
 }
 
 const monthFYData = (expenseList, incomeList) => {
-
     let itemListE = {}
     let itemListI = {}
-
-    expenseList.forEach((item) => {
+    let FY = currentFY()
+    let currentFYExpenseList = expenseList.filter(e => e.financialYear === FY)
+    let currentFYIncomeList = incomeList.filter(i => i.financialYear === FY)
+    console.log(currentFYExpenseList)
+    console.log(currentFYIncomeList)
+    currentFYExpenseList.forEach((item) => {
         const month = item.month;
         if (month in itemListE) {
             itemListE[month] += item.amount;
@@ -59,7 +62,7 @@ const monthFYData = (expenseList, incomeList) => {
 
     });
 
-    incomeList.forEach((item) => {
+    currentFYIncomeList.forEach((item) => {
         const month = item.month;
         if (month in itemListI) {
             itemListI[month] += item.amount;
@@ -76,13 +79,22 @@ const monthFYData = (expenseList, incomeList) => {
             income: itemListI[month]
         };
     });
-   return monthlyData
+    console.log(monthlyData)
+    const monthOrder = [
+        "April", "May", "June", "July", "August", "September",
+        "October", "November", "December", "January", "February", "March"
+    ];
+
+    const sortedData = [...monthlyData].sort((a, b) => {
+        return monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month);
+    });
+    console.log(sortedData)
+    return sortedData
 }
 
 const categoryData = (expenseList) => {
 
     let itemListE = {}
-    
     expenseList.forEach((item) => {
         const category = item.category;
         if (category in itemListE) {
@@ -100,7 +112,7 @@ const categoryData = (expenseList) => {
             value: amount,
         };
     });
-   return monthlyData
+    return monthlyData
 }
 
 export { currentFY, expenseYear, incomeYear, monthFYData, categoryData };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { expenseYear, incomeYear, monthFYData, categoryData } from '../../domain/dashBoardData.js'
+import {  monthFYData, categoryData } from '../../domain/dashBoardData.js'
 import { useFetchExpenses } from '../../shared/hooks/useFetchExpenses'
 import { useFetchIncomes } from '../../shared/hooks/useFetchIncomes.jsx';
 import Navbar from '../../shared/components/Navbar'
@@ -22,14 +22,14 @@ const Dashboard = () => {
                 console.log("Loading data...")
                 return;
             } else {
-                const filteredExpenseList = expenseYear(expenseList);
-                const filteredIncomeList = incomeYear(incomeList);
+                // const filteredExpenseList = expenseYear(expenseList);
+                // const filteredIncomeList = incomeYear(incomeList);
                 const monthFYDataList = monthFYData(expenseList, incomeList);
                 const categoryMonthlydata = categoryData(expenseList)
-                console.log(filteredExpenseList);
-                console.log(filteredIncomeList);
+                // console.log(filteredExpenseList);
+                // console.log(filteredIncomeList);
                 console.log(monthFYDataList);
-                console.log(categoryMonthlydata)
+                // console.log(categoryMonthlydata)
                 setmonthlyData(monthFYDataList)
                 setexpenseCategory(categoryMonthlydata)
             }
@@ -45,7 +45,7 @@ const Dashboard = () => {
                 <h2>Financial Overview</h2>
                 <div className="chart-card">
                     <h2>Yearly Chart</h2>
-                    <MonthlyFinanceChart monthlyData={monthlyData} />
+                    <MonthlyFinanceChart sortedData={monthlyData} />
                 </div>
                 <div className="chart-card">
                     <h3>Expense Breakdown</h3>
@@ -53,8 +53,6 @@ const Dashboard = () => {
                 </div>
             </div>
         </Layout>
-           
-
         </>
 
     )

@@ -15,7 +15,7 @@ export const validate = (name, value, formdata) => {
 
         case "email":
             if (value.length < 3) {
-                return "Email should be coorect"
+                return "Email should be in correct format"
             }
             return ""
 
