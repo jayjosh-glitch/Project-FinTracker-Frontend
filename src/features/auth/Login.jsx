@@ -71,12 +71,12 @@ const Login = () => {
                         <div>
                             <label htmlFor="email">Email:</label>
                             <input type="email" id="email" name='email' onChange={(e) => { handlechange(e) }} value={formData.email} />
-                            {error && <span className='error'>{error.email}</span>}
+                            {error?.email && <span className='error'>{error.email}</span>}
                         </div>
                         <div>
                             <label htmlFor="password">Password:</label>
                             <input type="password" id="password" name='password' onChange={(e) => { handlechange(e) }} value={formData.password} />
-                            {error && <span className='error'>{error.password}</span>}
+                            {error?.password && <span className='error'>{error.password}</span>}
                         </div>
                         <button type="submit" disabled={loading}>
                             {loading ? (
