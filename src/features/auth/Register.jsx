@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import Navbar1 from '../../shared/components/Navbar1'
 import { validate } from '../auth/Validation';
@@ -63,12 +62,14 @@ const Register = () => {
       }
     } catch (err) {
       // console.log("i am in error block")
+      if (error.response?.data?.message?.includes("database has reached monthly usage")) {
+        setmsg("Service is unavilable, please try again later")
+      }
       setmsg(err.response.data.message)
     }
     finally {
       setloading(false)
     }
-
   }
 
   return (
