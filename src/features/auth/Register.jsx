@@ -63,6 +63,9 @@ const Register = () => {
       }
     } catch (err) {
       // console.log("i am in error block")
+      if (error.response?.data?.message?.includes("database has reached monthly usage")) {
+        setmsg("Service is unavilable, please try again later")
+      }
       setmsg(err.response.data.message)
     }
     finally {
