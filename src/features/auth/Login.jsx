@@ -50,17 +50,14 @@ const Login = () => {
                 login(loggedin)
                 setmsg('Login Successfull')
                 navigate('/expense/expense')
-            } else {
-                setmsg('Invalid email or password')
-            }
+            } 
         } catch (err) {
-            setmsg(err.message)
+            setmsg( err.response.data.message )
         }
         finally {
             setloading(false)
         }
     }
-
     return (
         <>
             <Navbar1 />
