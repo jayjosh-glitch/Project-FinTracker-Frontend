@@ -58,8 +58,6 @@ const Login = () => {
             setloading(false)
         }
     }
-    console.log(msg)
-
     return (
         <>
             <Navbar1 />
