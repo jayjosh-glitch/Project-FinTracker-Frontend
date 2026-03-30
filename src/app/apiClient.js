@@ -1,10 +1,10 @@
 import axios from "axios";
 
-console.log(import.meta.env.VITE_API_URL); 
+console.log(import.meta.env.VITE_API_URL);
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 10000, 
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -38,11 +38,13 @@ apiClient.interceptors.response.use(
         localStorage.removeItem("token");
         window.location.href = "/auth/login";
       }
-
       if (status === 500) {
         alert("Internal server error")
       }
-
+      if (error.response?.data?.message?.includes("database has reached monthly usage")) {
+        alert("Service is unavilable, please try again later")
+        throw error
+      }
     }
 
     return Promise.reject(error);
