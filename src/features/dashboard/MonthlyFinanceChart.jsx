@@ -12,7 +12,7 @@ import {
 const MonthlyFinanceChart = ({ sortedData }) => {
 
   return (
-    <ResponsiveContainer width="100%" height={500}>
+    <ResponsiveContainer width="100%" height={400}>
       <BarChart data={sortedData} barGap={8}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
 

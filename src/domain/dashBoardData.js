@@ -1,3 +1,4 @@
+import Income from "../features/income/Income";
 
 const currentFY = () => {
     const today = new Date();
@@ -71,14 +72,24 @@ const monthFYData = (expenseList, incomeList) => {
         }
     })
 
+    const allMonths = new Set([
+        ...Object.keys(itemListE),
+        ...Object.keys(itemListI)
+    ]);
 
-    let monthlyData = Object.entries(itemListE).map(([month, amount]) => {
-        return {
-            month: month,
-            expense: amount,
-            income: itemListI[month]
-        };
-    });
+    let monthlyData = Array.from(allMonths).map(month => ({
+        month,
+        expense: itemListE[month] || 0,
+        income: itemListI[month] || 0
+    }));
+
+    // let monthlyData = Object.entries(itemListE).map(([month, amount]) => {
+    //     return {
+    //         month: month,
+    //         expense: amount,
+    //         income: itemListI[month] || 0
+    //     };
+    // });
     console.log(monthlyData)
     const monthOrder = [
         "April", "May", "June", "July", "August", "September",
@@ -115,4 +126,35 @@ const categoryData = (expenseList) => {
     return monthlyData
 }
 
-export { currentFY, expenseYear, incomeYear, monthFYData, categoryData };
+const currmonthData = (expenseList, incomeList) => {
+
+    const monthlyData = monthFYData(expenseList, incomeList);
+    const currentMonth = new Date().toLocaleString('en-US', { month: 'long' });
+    const currentData = monthlyData.find(d => d.month === currentMonth);
+    console.log(currentData)
+    if (!currentData) {
+        return {
+            totalsaving: 0,
+            msg: "No data available for this month"
+        };
+    }
+
+    const income = currentData.income || 0;
+    const expense = currentData.expense || 0;
+    console.log(income)
+    console.log(expense)
+    const totalsaving = income - expense;
+    // let msg = "";
+
+    // if (totalsaving < 0) {
+    //     msg = `You overspent by ₹${Math.abs(totalsaving)}`;
+    // } else if (totalsaving > 0) {
+    //     msg = `You saved ₹${totalsaving}`;
+    // } else {
+    //     msg = "No savings this month";
+    // }
+    console.log(totalsaving)
+    return {totalsaving, income, expense};
+};
+
+export { currentFY, expenseYear, incomeYear, monthFYData, categoryData, currmonthData };

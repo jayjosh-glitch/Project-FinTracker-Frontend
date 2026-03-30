@@ -1,65 +1,156 @@
-/* ─── Dashboard Container ─── */
-.dashboard-container {
-  padding: 2rem 1.75rem;
-  background: #E8EEF6;
+/* ─── Dashboard Main Wrapper ─── */
+.dashboard {
+  padding: 24px 28px;
+  background: #F4F7FB;
   min-height: 100%;
+  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 24px;
-  font-family: Arial, sans-serif;
 }
 
-/* ─── Page Heading ─── */
-.dashboard-container > h2 {
-  font-size: 28px;
+/* ─── Header ─── */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Welcome */
+.title h2 {
+  font-size: 24px;
   font-weight: 800;
   color: #0A2463;
-  text-align: center;
-  width: 100%;
+}
+
+.title p {
+  font-size: 13px;
+  color: #6B82A8;
+  margin-top: 4px;
+}
+
+/* ─── Numbers Section ─── */
+.numbers-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Shared Box Style */
+.expense-box,
+.income-box,
+.saving-box {
+  flex: 1;
+  min-width: 220px;
+  background: linear-gradient(135deg, #F8FAFF, #EEF4FF);
+  border: 1px solid rgba(10, 36, 99, 0.08);
+  border-radius: 16px;
+  padding: 18px 22px;
+  box-shadow: 0 6px 18px rgba(10, 36, 99, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.expense-box:hover,
+.income-box:hover,
+.saving-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(10, 36, 99, 0.12);
+}
+
+/* Values */
+.expense-box h2,
+.income-box h2,
+.saving-box h2 {
+  font-size: 22px;
+  font-weight: 800;
   margin: 0;
-  letter-spacing: -0.5px;
-  position: relative;
-  display: inline-block;
 }
 
-.dashboard-container > h2::after {
-  content: '';
-  display: block;
-  width: 48px;
-  height: 3px;
-  background: #2979FF;
-  border-radius: 2px;
-  margin: 6px auto 0;
+/* Labels */
+.expense-box p,
+.income-box p,
+.saving-box p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #6B82A8;
+  margin-top: 8px;
 }
 
-/* ─── Chart Card ─── */
-.chart-card {
+.expense-box {
+  color: #D32F2F;
+}
+.income-box{
+  color: #1B8A4E;
+}
+
+/* Colors */
+.green-text { color: #1B8A4E; }
+.red-text { color: #D32F2F; }
+
+/* ─── Chart Section ─── */
+.chart-section {
   width: 100%;
-  max-width: 1000px;
+}
+
+/* Container */
+.dashboard-container {
+  background: #E8EEF6;
+  padding: 24px;
+  border-radius: 16px;
+}
+
+/* Heading */
+.dashboard-container > h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: #0A2463;
+  margin-bottom: 24px;
+}
+
+/* ─── CHART ROW (MAIN FIX) ─── */
+.charts-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Chart Cards */
+.chart-card {
+  flex: 1;              /* equal width */
   background: #fff;
   border-radius: 14px;
-  padding: 25px;
+  padding: 20px;
   border: 1px solid rgba(10, 36, 99, 0.08);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
+  min-width: 0;  
+  height: 500px;
+  overflow: hidden;       /* 🔥 IMPORTANT (prevents overflow issues) */
 }
 
-.chart-card:hover {
-  transform: translateY(-2px);
-}
-
+/* Titles */
 .chart-card h2,
 .chart-card h3 {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   color: #0A2463;
   text-align: center;
 }
 
-/* ─── Recharts ─── */
+/* Chart size fix */
 .recharts-responsive-container {
-  font-size: 13px;
-  font-family: Arial, sans-serif;
+  width: 100% !important;
+  height: 320px !important;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .charts-row {
+    flex-direction: column;
+  }
+
+  .numbers-section {
+    flex-direction: column;
+  }
 }
