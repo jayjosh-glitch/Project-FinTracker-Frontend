@@ -210,3 +210,142 @@
     font-size: 12px;
   }
 }
+
+/* ===== BACKGROUND BLUR ===== */
+.expenseModal-overlay,
+.expenseDelete-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  background: rgba(0, 0, 0, 0.4); /* dark overlay */
+  backdrop-filter: blur(6px); /* blur effect */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+/* ===== MODAL CONTAINER ===== */
+.expenseModal-container,
+.expenseDelete-modal {
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  animation: fadeInScale 0.25s ease;
+}
+
+/* ===== TITLE ===== */
+.expenseModal-container h2,
+.expenseDelete-modal h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* ===== INPUTS ===== */
+.expenseModal-container input,
+.expenseModal-container select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+
+  transition: border 0.2s ease;
+}
+
+.expenseModal-container input:focus,
+.expenseModal-container select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* ===== BUTTON BASE ===== */
+.expenseModal-container button,
+.expenseDelete-modal button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+/* ===== PRIMARY BUTTON (Add / Update) ===== */
+.expenseModal-container button:last-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.expenseModal-container button:last-child:hover {
+  background-color: #0056b3;
+}
+
+/* ===== CANCEL BUTTON ===== */
+.expenseModal-container button:first-of-type {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.expenseModal-container button:first-of-type:hover {
+  background-color: #c7c7c7;
+}
+
+/* ===== DELETE BUTTON (RED) ===== */
+.expenseDelete-confirm {
+  background-color: #dc3545;
+  color: white;
+}
+
+.expenseDelete-confirm:hover {
+  background-color: #b02a37;
+}
+
+/* ===== DELETE CANCEL ===== */
+.expenseDelete-cancel {
+  background-color: #e0e0e0;
+}
+
+.expenseDelete-cancel:hover {
+  background-color: #c7c7c7;
+}
+
+/* ===== BUTTON GROUP ===== */
+.expenseDelete-actions,
+.expenseModal-actions,
+.add-action {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* ===== TEXT ===== */
+.expenseDelete-text {
+  text-align: center;
+  color: #555;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

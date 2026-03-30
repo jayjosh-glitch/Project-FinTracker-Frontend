@@ -1,23 +1,20 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useFetchIncomes } from '../../shared/hooks/useFetchIncomes';
-import Navbar from '../../shared/components/Navbar';
-import { useAuth } from '../auth/Authcontext';
 import { useState } from 'react';
 import '../income/income.css';
-import Sidebar from '../../shared/components/Sidebar';
 import Layout from '../../shared/components/Layout';
 
 const Income = () => {
 
-	const { incomeList, glerror, loading, updateIncomes, deleteIncomes, addIncomes } = useFetchIncomes();
-	const [income, setincome] = useState([]);
-	const { currentuser } = useAuth();
+	const { incomeList, inloading, updateIncomes, deleteIncomes, addIncomes } = useFetchIncomes();
+
 	const [edit, setedit] = useState(false)
 	const [selectedIncome, setselectedIncome] = useState(null)
 	const [showDeleteModal, setShowDeleteModal] = useState(false)
 	const [incomeToDelete, setIncomeToDelete] = useState(null)
 	const [add, setadd] = useState(false)
+	const [error, seterror] = useState(null)
+
 	const [newIncome, setnewIncome] = useState({
 		incomeType: "",
 		amount: 0,
@@ -26,19 +23,9 @@ const Income = () => {
 		remarks: "",
 		financialYear: ""
 	})
-	console.log(incomeList)
+	
+	const income = incomeList
 
-	useEffect(() => {
-		const getUserIncome = () => {
-			if (currentuser) {
-				const userIncome = incomeList
-				setincome(userIncome);
-			}
-		};
-		getUserIncome();
-	}, [currentuser, incomeList]);
-
-	//Adding pagees for expense list to avoid everything on single page
 	const [page, setpage] = useState(1)
 	const itemsPerPage = 8;
 	const startIndex = (page - 1) * itemsPerPage;
@@ -54,40 +41,50 @@ const Income = () => {
 	}
 
 	const handleaddExpense = async () => {
-		const addIncome = {
-			date: newIncome.date,
-			incomeType: newIncome.incomeType,
-			remarks: newIncome.remarks,
-			amount: Number(newIncome.amount),
-			month: newIncome.month,
-			financialYear: newIncome.financialYear,
+		try {
+			const addIncome = {
+				date: newIncome.date,
+				incomeType: newIncome.incomeType,
+				remarks: newIncome.remarks,
+				amount: Number(newIncome.amount),
+				month: newIncome.month,
+				financialYear: newIncome.financialYear,
+			}
+			await addIncomes(addIncome)
+			setadd(false)
+			seterror(null)
+		} catch (err) {
+			seterror(err.response.data.message || err.message)
 		}
-		console.log(addIncome)
-		await addIncomes(addIncome)
-		setadd(false)
 	}
 
 	const handleUpdateSubmit = async () => {
-		// call update function here with selectedExpense data
-		console.log(setselectedIncome)
-		const updatedIncome = {
-			id: setselectedIncome.id,
-			date: new Date(setselectedIncome.date).toISOString(), incomeType: setselectedIncome.incomeType,
-			remarks: setselectedIncome.remarks,
-			amount: setselectedIncome.amount,
-			month: setselectedIncome.month,
-			financialYear: setselectedIncome.financialYear,
-			category: setselectedIncome.category
+		try {
+			console.log(setselectedIncome)
+			const updatedIncome = {
+				id: setselectedIncome.id,
+				date: new Date(setselectedIncome.date).toISOString(), incomeType: setselectedIncome.incomeType,
+				remarks: setselectedIncome.remarks,
+				amount: setselectedIncome.amount,
+				month: setselectedIncome.month,
+				financialYear: setselectedIncome.financialYear,
+				category: setselectedIncome.category
+			}
+			await updateIncomes(setselectedIncome.id, updatedIncome)
+			setedit(false)
+		} catch (err) {
+			seterror(err.response.data.message || err.message)
 		}
-		await updateIncomes(setselectedIncome.id, updatedIncome)
-		setedit(false)
-		// 	await addExpenses(selectedExpense)
 	}
 
 	const handleDeleteConfirm = async () => {
-		await deleteIncomes(incomeToDelete.id)
-		setShowDeleteModal(false)
-		setIncomeToDelete(null)
+		try {
+			await deleteIncomes(incomeToDelete.id)
+			setShowDeleteModal(false)
+			setIncomeToDelete(null)
+		}catch (err) {
+			seterror(err.response.data.message || err.message)
+		}
 	}
 
 	return (
@@ -95,7 +92,7 @@ const Income = () => {
 			<Layout>
 				<main className='income-main'>
 					<h1>Income Page</h1>
-					{loading && <p>Loading...</p>}
+					{inloading && <p>Loading...</p>}
 					<section className='income-section'>
 						<table className='income-table'>
 							<thead>
@@ -127,8 +124,8 @@ const Income = () => {
 								))}
 							</tbody>
 						</table>
-						{glerror && <p className='error'>{glerror}</p>}
-						{!loading && incomeList.length === 0 && <p>No incomes found.</p>}
+						{error && <p className='error'>{error}</p>}
+						{!inloading && incomeList.length === 0 && <p>No incomes found.</p>}
 						<div className="pagination">
 							<button disabled={page === 1} onClick={() => setpage(page - 1)}>Prev</button>
 							<span>Page {page} of {totalPages}</span>
@@ -211,11 +208,11 @@ const Income = () => {
 
 									<button
 										type="button"
-										disabled={loading}
+										disabled={inloading}
 										onClick={handleaddExpense}
 										className="incomeAddConfirm-btn"
 									>
-										{loading ? <span className="incomeLoader"></span> : "Add"}
+										{inloading ? <span className="incomeLoader"></span> : "Add"}
 									</button>
 
 									<button
@@ -288,11 +285,11 @@ const Income = () => {
 
 									<button
 										type="button"
-										disabled={loading}
+										disabled={inloading}
 										onClick={handleUpdateSubmit}
 										className="incomeUpdate-btn"
 									>
-										{loading ? <span className="incomeLoader"></span> : "Update"}
+										{inloading ? <span className="incomeLoader"></span> : "Update"}
 									</button>
 
 									<button
@@ -328,6 +325,7 @@ const Income = () => {
 
 									<button
 										className="incomeDelete-confirm"
+										disabled={inloading}
 										onClick={handleDeleteConfirm}
 									>
 										Delete

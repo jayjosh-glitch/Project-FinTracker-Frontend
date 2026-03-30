@@ -1,11 +1,10 @@
 import axios from "axios";
 
-
+console.log(import.meta.env.VITE_API_URL); 
 
 const apiClient = axios.create({
-//   baseURL: API_BASE_URL,
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 10000, // 10 seconds timeout
+  timeout: 10000, 
   headers: {
     "Content-Type": "application/json",
   },
@@ -27,7 +26,6 @@ apiClient.interceptors.request.use(
 );
 
 
-
 apiClient.interceptors.response.use(
   (response) => {
     return response;
@@ -37,25 +35,18 @@ apiClient.interceptors.response.use(
       const status = error.response.status;
 
       if (status === 401) {
-        console.log("Unauthorized. Redirecting to login...");
-
         localStorage.removeItem("token");
-
-        // optional redirect
         window.location.href = "/auth/login";
       }
 
       if (status === 500) {
-        console.error("Server error occurred");
+        alert("Internal server error")
       }
+
     }
 
     return Promise.reject(error);
   }
 );
-
-/*
-  Export instance to use in services
-*/
 
 export default apiClient;

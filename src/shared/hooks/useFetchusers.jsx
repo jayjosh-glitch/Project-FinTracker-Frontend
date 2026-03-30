@@ -8,7 +8,7 @@ export const useFetchusers = () => {
     console.log(formData)
       const res = await getloginUser(formData.email, formData.password);
       console.log(res)
-      return res;
+      return res
   }
  
   const createUser = async (formData) => {

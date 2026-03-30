@@ -21,7 +21,6 @@ export const Authcontext = ({ children }) => {
             console.log(user)
             localStorage.setItem('token', user.token)
             localStorage.setItem('isloggedin', 'true')
-            console.log(localStorage.getItem(('isloggedin')))
             localStorage.setItem('currentuser', JSON.stringify(user))
         } else if (!user || user === null) {
             localStorage.setItem('isloggedin', 'false')
@@ -42,7 +41,6 @@ export const Authcontext = ({ children }) => {
             console.log(user)
             localStorage.setItem('token', user.token)
             localStorage.setItem('isloggedin', 'true')
-            console.log(localStorage.getItem(('isloggedin')))
             localStorage.setItem('currentuser', JSON.stringify(user))
         } else if (!user || user === null) {
             localStorage.setItem('isloggedin', 'false')

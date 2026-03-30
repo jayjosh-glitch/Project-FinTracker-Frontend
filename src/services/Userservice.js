@@ -18,6 +18,7 @@ export const getloginUser = async (email, password) => {
     email,
     password
   });
+  console.log(response)
   return response.data;
 };
 export const addusers = (formdata) => {

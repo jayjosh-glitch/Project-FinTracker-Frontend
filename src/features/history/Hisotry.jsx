@@ -5,15 +5,13 @@ import Navbar from '../../shared/components/Navbar';
 import { useFetchIncomes } from '../../shared/hooks/useFetchIncomes';
 import { useState } from 'react';
 import '../history/history.css';
-import Sidebar from '../../shared/components/Sidebar';
 import Layout from '../../shared/components/Layout';
 
 const Hisotry = () => {
 
-	const { filteredIListI, inerror, inloading, filterIncomes, } = useFetchIncomes();
-	const { filteredListE, exloading, exerror, filterExpense } = useFetchExpenses();
-	const userFinalList = [...filteredListE, ...filteredIListI]
-	// const [userFinalList, setuserFinalList] = useState([]);
+	const {  inerror, inloading, filterIncomes, } = useFetchIncomes();
+	const {  exloading, exerror, filterExpense } = useFetchExpenses();
+    const [finalList, setfinalList] = useState([])
 	const [error, seterror] = useState(false)
 	const [msg, setmsg] = useState('')
 
@@ -29,7 +27,7 @@ const Hisotry = () => {
 
 	const handleFilterSubmit = async (e) => {
 		e.preventDefault();
-		console.log(filters);
+		// console.log(filters);
 		if (filters.month === '' && filters.financialYear === '') {
 			setmsg('Please select at least one filter')
 			return
@@ -42,27 +40,25 @@ const Hisotry = () => {
 		}
 
 		try {
-			await filterExpense(filters.month, filters.financialYear)
-			await filterIncomes(filters.month, filters.financialYear)
+			const expense = await filterExpense(filters.month, filters.financialYear)
+			const income = await filterIncomes(filters.month, filters.financialYear)
+			setfinalList([...expense, ...income])
 		}
 		catch (err) {
-			seterror(err.message)
+			seterror(err.response.data.message)
 		}
 	};
 
-	//Adding pagees for expense list to avoid everything on single page
 	const [page, setpage] = useState(1)
 	const itemsPerPage = 8;
 	const startIndex = (page - 1) * itemsPerPage;
 	const endIndex = startIndex + itemsPerPage;
-	const currentList = userFinalList.slice(startIndex, endIndex);
-	const totalPages = Math.ceil(userFinalList.length / itemsPerPage);
+	const currentList = finalList.slice(startIndex, endIndex);
+	const totalPages = Math.ceil(finalList.length / itemsPerPage);
 	const startRecord = startIndex + 1;
-	const endRecord = Math.min(endIndex, userFinalList.length);
+	const endRecord = Math.min(endIndex, finalList.length);
 
-	console.log(filteredListE)
-	console.log(filteredIListI)
-	console.log(userFinalList)
+	// console.log(finalList)
 
 	const handleReset = () => {
 		setFilters({ month: '', financialYear: '' });
@@ -126,7 +122,7 @@ const Hisotry = () => {
 				</section>
 				<section className='history-section'>
 					<h2> Financial History</h2>
-					{userFinalList.length === 0 ? (<p>No Data available for given Month and Financial year </p>)
+					{finalList.length === 0 ? (<p>No Data available for given Month and Financial year </p>)
 						: (
 							<table className='history-table'>
 								<thead>
@@ -164,7 +160,7 @@ const Hisotry = () => {
 					</div>
 					<div className="table-footer">
 						<span>
-							Showing {startRecord}–{endRecord} of {userFinalList.length}
+							Showing {startRecord}–{endRecord} of {finalList.length}
 						</span>
 					</div>
 				</section>
