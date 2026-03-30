@@ -1,48 +1,20 @@
-import { useState } from "react";
 import { getloginUser, addusers } from "../../services/Userservice";
 
 export const useFetchusers = () => {
 
   // const [user, setuser] = useState([])
-  const [glerror, setglerror] = useState('')
-
-  // useEffect(() => {
-  //     const fetchUsers = async () => {
-  //         try {
-  //             const data = await getusers();
-  //             setusers(data)
-  //         }
-  //         catch (err) {
-  //             setglerror(err.message)
-  //         }
-  //     }
-  //     fetchUsers();
-  // }, [])
-
+  
   const loginUser = async (formData) => {
     console.log(formData)
-    try {
-      setglerror("");
-      const data = await getloginUser(formData.email, formData.password);
-      console.log(data)
-      return data;
-    } catch (err) {
-      setglerror(err.message);
-    } finally {
-      setglerror(false);
-    }
+      const res = await getloginUser(formData.email, formData.password);
+      console.log(res)
+      return res;
   }
-
+ 
   const createUser = async (formData) => {
-    setglerror(null)
-    try {
-      const response = await addusers(formData)
-      return response
-    } catch (err) {
-      setglerror(err.response?.data?.message || err.message)
-      throw err
-    }
+    const response = await addusers(formData)
+    return response
   }
 
-  return { loginUser, glerror, createUser }
+  return { loginUser, createUser }
 }
