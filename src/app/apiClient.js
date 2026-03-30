@@ -38,11 +38,9 @@ apiClient.interceptors.response.use(
         localStorage.removeItem("token");
         window.location.href = "/auth/login";
       }
-
       if (status === 500) {
         alert("Internal server error")
       }
-
       if (error.response?.data?.message?.includes("database has reached monthly usage")) {
         alert("Service is unavilable, please try again later")
         throw error

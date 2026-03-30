@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import Navbar1 from '../../shared/components/Navbar1'
 import { validate } from '../auth/Validation';
@@ -71,7 +70,6 @@ const Register = () => {
     finally {
       setloading(false)
     }
-
   }
 
   return (
