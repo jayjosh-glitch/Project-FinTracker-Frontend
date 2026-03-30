@@ -1,371 +1,348 @@
-import React, { useEffect } from 'react';
-import { useFetchExpenses } from '../../shared/hooks/useFetchExpenses';
-import Navbar from '../../shared/components/Navbar';
 import { useState } from 'react';
-import '../expense/expense.css';
-import { useAuth } from '../auth/Authcontext';
-import Sidebar from '../../shared/components/Sidebar';
+import { useFetchExpenses } from '../../shared/hooks/useFetchExpenses';
 import Layout from '../../shared/components/Layout';
-
+import '../expense/expense.css';
 
 const Expense = () => {
 
-	const { expenseList, glerror, loading, updateExpenses, deleteExpenses, addExpenses } = useFetchExpenses();
-	const [expense, setexpense] = useState([]);
-	const { currentuser } = useAuth();
-	const [edit, setedit] = useState(false)
-	const [add, setadd] = useState(false)
-	const [selectedExpense, setselectedExpense] = useState(null)
-	const [showDeleteModal, setShowDeleteModal] = useState(false)
-	const [expenseToDelete, setExpenseToDelete] = useState(null)
-	const [newExpense, setnewExpense] = useState({
-		expenseType: "",
-		amount: 0,
-		date: "",
-		month: "",
-		category: "",
-		description: "",
-		financialYear: ""
-	})
+  const { expenseList, exloading, updateExpenses, deleteExpenses, addExpenses } = useFetchExpenses();
+  console.log(exloading)
+  const [error, setError] = useState(null);
+  const [edit, setedit] = useState(false);
+  const [add, setadd] = useState(false);
+  const [selectedExpense, setselectedExpense] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [expenseToDelete, setExpenseToDelete] = useState(null);
 
-	console.log(expenseList)
-	useEffect(() => {
-		const getUserExpense = () => {
-			if (currentuser) {
-				const userExpense = expenseList;
-				setexpense(userExpense);
-			}
-		};
-		getUserExpense();
-	}, [currentuser, expenseList]);
+  const [newExpense, setnewExpense] = useState({
+    expenseType: "",
+    amount: 0,
+    date: "",
+    month: "",
+    category: "",
+    description: "",
+    financialYear: ""
+  });
 
-	//Adding pagees for expense list to avoid everything on single page
-	const [page, setpage] = useState(1)
-	const itemsPerPage = 8;
-	const startIndex = (page - 1) * itemsPerPage;
-	const endIndex = startIndex + itemsPerPage;
-	const currentExpenseList = expense.slice(startIndex, endIndex);
-	const totalPages = Math.ceil(expense.length / itemsPerPage);
-	const startRecord = startIndex + 1;
-	const endRecord = Math.min(endIndex, expense.length);
+  const expense = expenseList;
 
+  const [page, setpage] = useState(1);
+  const itemsPerPage = 8;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentExpenseList = expense.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(expense.length / itemsPerPage);
+  const startRecord = startIndex + 1;
+  const endRecord = Math.min(endIndex, expense.length);
 
-	const handleEdit = (expense) => {
-		setedit(true)
-		setselectedExpense(expense)
-	}
+  const handleEdit = (expense) => {
+    setedit(true);
+    setselectedExpense(expense);
+  };
 
-	const handleaddExpense = async () => {
-		const addExpense = {
-			date: newExpense.date,
-			expenseType: newExpense.expenseType,
-			description: newExpense.description,
-			amount: Number(newExpense.amount),
-			month: newExpense.month,
-			financialYear: newExpense.financialYear,
-			category: newExpense.category
-		}
-		console.log(addExpense)
-		await addExpenses(addExpense)
-		setadd(false)
-	}
-	const handleUpdateSubmit = async () => {
-		// call update function here with selectedExpense data
-		console.log(selectedExpense)
-		const updatedExpense = {
-			id: selectedExpense.id,
-			date: new Date(selectedExpense.date).toISOString(),
-			expenseType: selectedExpense.expenseType,
-			description: selectedExpense.description,
-			amount: selectedExpense.amount,
-			month: selectedExpense.month,
-			financialYear: selectedExpense.financialYear,
-			category: selectedExpense.category
-		}
+  const handleaddExpense = async () => {
+    try {
+      const payload = {
+        date: newExpense.date,
+        expenseType: newExpense.expenseType,
+        description: newExpense.description,
+        amount: Number(newExpense.amount),
+        month: newExpense.month,
+        financialYear: newExpense.financialYear,
+        category: newExpense.category
+      };
 
-		await updateExpenses(selectedExpense.id, updatedExpense)
-		setedit(false)
-		// 	await addExpenses(selectedExpense)
-	}
+      await addExpenses(payload);
+      setadd(false);
+      setError(null);
 
-	const handleDeleteConfirm = async () => {
-		await deleteExpenses(expenseToDelete.id)
-		setShowDeleteModal(false)
-		setExpenseToDelete(null)
-	}
-	return (
-		<>
-			<Layout>
-				<main className='expense-main'>
-					<h1>Expense Page</h1>
-					{loading && <p>Loading...</p>}
-					<section className='expense-section'>
-						<table className='expense-table'>
-							<thead>
-								<tr>
-									<th>Sr No</th>
-									<th>Date</th>
-									<th>Month</th>
-									<th>Expense Type</th>
-									<th>Description</th>
-									<th>Amount</th>
-									<th colSpan={3}></th>
-								</tr>
-							</thead>
-							<tbody>
-								{currentExpenseList.map((expense, index) => (
-									<tr key={expense.id}>
-										<td>{(page - 1) * itemsPerPage + index + 1}</td>
-										<td>{new Date(expense.date).toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
-										<td>{expense.month}</td>
-										<td>{expense.expenseType}</td>
-										<td>{expense.description}</td>
-										<td>₹{expense.amount}</td>
-										<td><button className='update' onClick={() => handleEdit(expense)} >Update</button></td>
-										<td><button
-											className="delete"
-											id='delete'
-											onClick={() => {
-												setExpenseToDelete(expense)
-												setShowDeleteModal(true)
-											}}
-										>
-											Delete
-										</button>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-						{glerror && <p className='error'>{glerror}</p>}
-						{!loading && expenseList.length === 0 && <p>No expenses found.</p>}
-						<div className="pagination">
-							<button disabled={page === 1} onClick={() => setpage(page - 1)}>Prev</button>
-							<span>Page {page} of {totalPages}</span>
-							<button disabled={page === totalPages} onClick={() => setpage(page + 1)}>Next</button>
-						</div>
-						<div className="table-footer">
-							<span>
-								Showing {startRecord}–{endRecord} of {expense.length} expenses
-							</span>
-						</div>
-					</section>
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    }
+  };
 
-					<div className='expenseAdd-container'>
-						<button className="expenseAdd-btn" onClick={() => setadd(true)}>Add Expense</button>
-					</div>
+  const handleUpdateSubmit = async () => {
+    try {
+      const updatedExpense = {
+        id: selectedExpense.id,
+        date: new Date(selectedExpense.date).toISOString(),
+        expenseType: selectedExpense.expenseType,
+        description: selectedExpense.description,
+        amount: selectedExpense.amount,
+        month: selectedExpense.month,
+        financialYear: selectedExpense.financialYear,
+        category: selectedExpense.category
+      };
 
-					{edit && selectedExpense && (
-						<div className="expenseModal-overlay">
-							<div className="expenseModal-container">
+      await updateExpenses(selectedExpense.id, updatedExpense);
+      setedit(false);
+      setError(null);
 
-								<h2 className="expenseModal-title">Edit Expense</h2>
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    }
+  };
 
-								<input
-									className="expenseModal-input"
-									type="date"
-									value={selectedExpense.date?.split("T")[0]}
-									onChange={(e) =>
-										setselectedExpense({ ...selectedExpense, date: e.target.value })
-									}
-								/>
+  const handleDeleteConfirm = async () => {
+    try {
+      await deleteExpenses(expenseToDelete.id);
+      setShowDeleteModal(false);
+      setExpenseToDelete(null);
+      setError(null);
 
-								<input
-									className="expenseModal-input"
-									placeholder="Month"
-									value={selectedExpense.month}
-									onChange={(e) =>
-										setselectedExpense({ ...selectedExpense, month: e.target.value })
-									}
-								/>
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    }
+  };
 
-								<input
-									className="expenseModal-input"
-									placeholder="Expense Type"
-									value={selectedExpense.expenseType}
-									onChange={(e) =>
-										setselectedExpense({ ...selectedExpense, expenseType: e.target.value })
-									}
-								/>
+  return (
+    <Layout>
+      <main className='expense-main'>
 
-								<input
-									className="expenseModal-input"
-									placeholder="Description"
-									value={selectedExpense.description}
-									onChange={(e) =>
-										setselectedExpense({ ...selectedExpense, description: e.target.value })
-									}
-								/>
+        <h1>Expense Page</h1>
 
-								<input
-									className="expenseModal-input"
-									placeholder="Amount"
-									type="number"
-									value={selectedExpense.amount}
-									onChange={(e) =>
-										setselectedExpense({ ...selectedExpense, amount: e.target.value })
-									}
-								/>
+        {exloading && <p>Loading...</p>}
+        <section className='expense-section'>
+          <table className='expense-table'>
+            <thead>
+              <tr>
+                <th>Sr No</th>
+                <th>Date</th>
+                <th>Month</th>
+                <th>Expense Type</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th colSpan={2}></th>
+              </tr>
+            </thead>
 
-								<div className="expenseModal-actions">
+            <tbody>
+              {currentExpenseList.map((expense, index) => (
+                <tr key={expense.id}>
+                  <td>{(page - 1) * itemsPerPage + index + 1}</td>
+                  <td>
+                    {new Date(expense.date)
+                      .toLocaleDateString('en-GB')
+                      .replace(/\//g, '-')}
+                  </td>
+                  <td>{expense.month}</td>
+                  <td>{expense.expenseType}</td>
+                  <td>{expense.description}</td>
+                  <td>₹{expense.amount}</td>
 
-									<button
-										type="button"
-										disabled={loading}
-										onClick={handleUpdateSubmit}
-										className="expenseUpdate-btn"
-									>
-										{loading ? <span className="expenseLoader"></span> : "Update"}
-									</button>
+                  <td>
+                    <button
+                      className='update'
+                      onClick={() => handleEdit(expense)}
+                    >
+                      Update
+                    </button>
+                  </td>
 
-									<button
-										type="button"
-										className="expenseCancel-btn"
-										onClick={() => setedit(false)}
-									>
-										Cancel
-									</button>
+                  <td>
+                    <button
+                      className='delete'
+                      onClick={() => {
+                        setExpenseToDelete(expense);
+                        setShowDeleteModal(true);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-								</div>
+          <div className="pagination">
+            <button disabled={page === 1} onClick={() => setpage(page - 1)}>Prev</button>
+            <span>Page {page} of {totalPages}</span>
+            <button disabled={page === totalPages} onClick={() => setpage(page + 1)}>Next</button>
+          </div>
 
-							</div>
-						</div>
-					)}
+          <div className="table-footer">
+            <span>
+              Showing {startRecord}–{endRecord} of {expense.length} expenses
+            </span>
+          </div>
 
-					{showDeleteModal && expenseToDelete && (
-						<div className="expenseDelete-overlay">
-							<div className="expenseDelete-modal">
+          {!exloading && expense.length === 0 && <p>No expenses found.</p>}
+          {error && <p className='error'>{error}</p>}
+        </section>
 
-								<h3 className="expenseDelete-title">Confirm Delete</h3>
+        <div className='expenseAdd-container'>
+          <button className='expenseAdd-btn' onClick={() => setadd(true)}>Add Expense</button>
+        </div>
 
-								<p className="expenseDelete-text">
-									Are you sure you want to delete this expense?
-								</p>
+        {edit && selectedExpense && (
+          <div className="expenseModal-overlay">
+            <div className="expenseModal-container">
 
-								<div className="expenseDelete-details">
-									<p><strong>Type:</strong> {expenseToDelete.expenseType}</p>
-									<p><strong>Description:</strong> {expenseToDelete.description}</p>
-									<p><strong>Amount:</strong> ${expenseToDelete.amount}</p>
-									<p><strong>Date:</strong> {new Date(expenseToDelete.date).toLocaleDateString()}</p>
-								</div>
+              <h2>Edit Expense</h2>
 
-								<div className="expenseDelete-actions">
+              <input
+                type="date"
+                value={selectedExpense.date?.split("T")[0]}
+                onChange={(e) =>
+                  setselectedExpense({ ...selectedExpense, date: e.target.value })
+                }
+              />
 
-									<button
-										className="expenseDelete-confirm"
-										onClick={handleDeleteConfirm}
-									>
-										Delete
-									</button>
+              <input
+                value={selectedExpense.month}
+                onChange={(e) =>
+                  setselectedExpense({ ...selectedExpense, month: e.target.value })
+                }
+              />
 
-									<button
-										className="expenseDelete-cancel"
-										onClick={() => setShowDeleteModal(false)}
-									>
-										Cancel
-									</button>
+              <input
+                value={selectedExpense.expenseType}
+                onChange={(e) =>
+                  setselectedExpense({ ...selectedExpense, expenseType: e.target.value })
+                }
+              />
 
-								</div>
+              <input
+                value={selectedExpense.description}
+                onChange={(e) =>
+                  setselectedExpense({ ...selectedExpense, description: e.target.value })
+                }
+              />
 
-							</div>
-						</div>
-					)}
+              <input
+                type="number"
+                value={selectedExpense.amount}
+                onChange={(e) =>
+                  setselectedExpense({ ...selectedExpense, amount: e.target.value })
+                }
+              />
 
-					{add && (
-						<div className="expenseModal-overlay">
-							<div className="expenseModal-container">
+              <button onClick={handleUpdateSubmit}>
+                {exloading ? "Updating..." : "Update"}
+              </button>
 
-								<h2 className="expenseModal-title">Add Expense</h2>
+              <button onClick={() => setedit(false)}>Cancel</button>
+            </div>
+          </div>
+        )}
 
-								<input
-									className="expenseModal-input"
-									type="date"
-									value={newExpense.date?.split("T")[0]}
-									onChange={(e) =>
-										setnewExpense({ ...newExpense, date: e.target.value })
-									}
-								/>
+        {showDeleteModal && expenseToDelete && (
+          <div className="expenseDelete-overlay">
+            <div className="expenseDelete-modal">
 
-								<input
-									className="expenseModal-input"
-									placeholder="Month"
-									value={newExpense.month}
-									onChange={(e) =>
-										setnewExpense({ ...newExpense, month: e.target.value })
-									}
-								/>
+              <h3 className="expenseDelete-title">Confirm Delete</h3>
 
-								<input
-									className="expenseModal-input"
-									placeholder="Expense Type"
-									value={newExpense.expenseType}
-									onChange={(e) =>
-										setnewExpense({ ...newExpense, expenseType: e.target.value })
-									}
-								/>
+              <p className="expenseDelete-text">
+                Are you sure you want to delete this expense?
+              </p>
 
-								<input
-									className="expenseModal-input"
-									placeholder="Description"
-									value={newExpense.description}
-									onChange={(e) =>
-										setnewExpense({ ...newExpense, description: e.target.value })
-									}
-								/>
+              <div className="expenseDelete-details">
+                <p><strong>Type:</strong> {expenseToDelete.expenseType}</p>
+                <p><strong>Description:</strong> {expenseToDelete.description}</p>
+                <p><strong>Amount:</strong> ${expenseToDelete.amount}</p>
+                <p><strong>Date:</strong> {new Date(expenseToDelete.date).toLocaleDateString()}</p>
+              </div>
 
-								<input
-									className="expenseModal-input"
-									placeholder="Amount"
-									type="number"
-									value={newExpense.amount}
-									onChange={(e) =>
-										setnewExpense({ ...newExpense, amount: e.target.value })
-									}
-								/>
+              <div className="expenseDelete-actions">
 
-								<input
-									className="expenseModal-input"
-									placeholder="Financial Year"
-									type="text"
-									value={newExpense.financialYear}
-									onChange={(e) =>
-										setnewExpense({ ...newExpense, financialYear: e.target.value })
-									}
-								/>
+                <button
+                  className="expenseDelete-confirm"
+                  onClick={handleDeleteConfirm}
+                >
+                  Delete
+                </button>
 
-								<div className='expenseModal-category'>
-									<label className="expenseModal-label" htmlFor="category">Category</label>
+                <button
+                  className="expenseDelete-cancel"
+                  onClick={() => setShowDeleteModal(false)}
+                >
+                  Cancel
+                </button>
 
-									<select
-										className="expenseModal-select"
-										id="category"
-										name="category"
-										value={newExpense.category}
-										onChange={(e) => {
-											setnewExpense({ ...newExpense, category: e.target.value })
-										}}
-									>
-										<option value="">Select Category</option>
-										<option value="Food">Food</option>
-										<option value="Health">Health</option>
-										<option value="Utilities">Utilities</option>
-										<option value="Transportation">Transportation</option>
-										<option value="Other">Other</option>
-									</select>
-								</div>
-								<div className="add-action">
-									<button className="cancel-btn" onClick={() => { setadd(false) }}>Cancel</button>
-									<button className="save-btn" onClick={handleaddExpense}>Save Expense</button>
-								</div>
-							</div>
-						</div>
-					)}
+              </div>
 
-				</main>
-			</Layout>
+            </div>
+          </div>
+        )}
 
-		</>
-	);
+        {add && (
+          <div className="expenseModal-overlay">
+            <div className="expenseModal-container">
+
+              <h2>Add Expense</h2>
+
+              <input type="date"
+                value={newExpense.date}
+                onChange={(e) =>
+                  setnewExpense({ ...newExpense, date: e.target.value })
+                }
+              />
+
+              <input
+                placeholder="Month"
+                value={newExpense.month}
+                onChange={(e) =>
+                  setnewExpense({ ...newExpense, month: e.target.value })
+                }
+              />
+
+              <input
+                placeholder="Expense Type"
+                value={newExpense.expenseType}
+                onChange={(e) =>
+                  setnewExpense({ ...newExpense, expenseType: e.target.value })
+                }
+              />
+
+              <input
+                placeholder="Description"
+                value={newExpense.description}
+                onChange={(e) =>
+                  setnewExpense({ ...newExpense, description: e.target.value })
+                }
+              />
+
+              <input
+                type="number"
+                value={newExpense.amount}
+                onChange={(e) =>
+                  setnewExpense({ ...newExpense, amount: e.target.value })
+                }
+              />
+
+              <input
+                placeholder="Financial Year"
+                value={newExpense.financialYear}
+                onChange={(e) =>
+                  setnewExpense({ ...newExpense, financialYear: e.target.value })
+                }
+              />
+
+              <select
+                value={newExpense.category}
+                onChange={(e) =>
+                  setnewExpense({ ...newExpense, category: e.target.value })
+                }
+              >
+                <option value="">Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Health">Health</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Other">Other</option>
+              </select>
+
+              <button onClick={() => setadd(false)}>Cancel</button>
+              <button onClick={handleaddExpense}>Save Expense</button>
+
+            </div>
+          </div>
+        )}
+
+      </main>
+    </Layout>
+  );
 };
 
 export default Expense;

@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { monthFYData, categoryData, currmonthData } from '../../domain/dashBoardData.js'
 import { useFetchExpenses } from '../../shared/hooks/useFetchExpenses'
 import { useFetchIncomes } from '../../shared/hooks/useFetchIncomes.jsx';
-import Navbar from '../../shared/components/Navbar'
 import MonthlyFinanceChart from '../dashboard/MonthlyFinanceChart'
 import ExpensePieChart from '../dashboard/ExpensePieChart'
 import '../dashboard/dashboard.css';
-import Sidebar from '../../shared/components/Sidebar.jsx';
 import Layout from '../../shared/components/Layout.jsx';
 import { useAuth } from '../auth/Authcontext.jsx'
 
@@ -22,24 +20,18 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = () => {
             if (expenseList.length === 0 || incomeList.length === 0) {
-                console.log("Loading data...")
+                // console.log("Loading data...")
                 return;
             } else {
-                // const filteredExpenseList = expenseYear(expenseList);
-                // const filteredIncomeList = incomeYear(incomeList);
                 const monthFYDataList = monthFYData(expenseList, incomeList);
                 const categoryMonthlydata = categoryData(expenseList)
-                // console.log(filteredExpenseList);
-                // console.log(filteredIncomeList);
-                console.log(monthFYDataList);
-                // console.log(categoryMonthlydata)
+                // console.log(monthFYDataList);
                 setmonthlyData(monthFYDataList)
                 setexpenseCategory(categoryMonthlydata)
             }
         }
         fetchData()
     }, [expenseList, incomeList])
-    console.log(typeof (savings))
 
     return (
         <>
@@ -74,10 +66,10 @@ const Dashboard = () => {
                         </div>
                         <div className='saving-box'>
                             <h2>
-                                <span className={monthData > 0 ? "green-text" : "red-text"}>
+                                <span className={monthData.totalsaving > 0 ? "green-text" : "red-text"}>
                                     {monthData.totalsaving > 0
                                         ? `₹${monthData.totalsaving}`
-                                        : `-₹${Math.abs(monthData.totalsaving)}`
+                                        : `-₹${monthData.totalsaving}`
                                     }
                                 </span>
                             </h2>

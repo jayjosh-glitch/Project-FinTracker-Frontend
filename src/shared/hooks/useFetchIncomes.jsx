@@ -5,9 +5,7 @@ import { getIncomes, addIncome, deleteIncome, updateIncome, filterIncome } from 
 export const useFetchIncomes = () => {
 
     const [incomeList, setincomeList] = useState([])
-    const [inerror, setinerror] = useState(false)
     const [inloading, setinloading] = useState(false)
-    const [filteredIListI, setfilteredIListI] = useState([])
 
     useEffect(() => {
         const fetchIncome = async () => {
@@ -15,9 +13,6 @@ export const useFetchIncomes = () => {
             try {
                 const data = await getIncomes();
                 setincomeList(data)
-            }
-            catch (err) {
-                setinerror(err.message)
             }
             finally {
                 setinloading(false);
@@ -31,11 +26,8 @@ export const useFetchIncomes = () => {
             setinloading(true);
             const data = await addIncome(formData);
             setincomeList([...incomeList, data]);
-        } catch (err) {
-            setinerror(err.message);
-        } finally {
+        }  finally {
             setinloading(false);
-            setinerror(false);
         }
     };
 
@@ -44,11 +36,8 @@ export const useFetchIncomes = () => {
             setinloading(true);
             const data = await updateIncome(formData);
             setincomeList(incomeList.map((income) => (income.id === data.id ? data : income)));
-        } catch (err) {
-            setinerror(err.message);
         } finally {
             setinloading(false);
-            setinerror(false);
         }
     };
 
@@ -57,11 +46,8 @@ export const useFetchIncomes = () => {
             setinloading(true);
             await deleteIncome(id);
             setincomeList(incomeList.filter((income) => income.id !== id));
-        } catch (err) {
-            setinerror(err.message);
-        } finally {
+        }  finally {
             setinloading(false);
-            setinerror(false);
         }
     };
 
@@ -69,10 +55,7 @@ export const useFetchIncomes = () => {
         try {
             setinloading(true)
             const data = await filterIncome(month, year);
-            setfilteredIListI(data)
-        }
-        catch (err) {
-            setinloading(err.message)
+            return(data)
         }
         finally {
             setinloading(false);
@@ -80,5 +63,5 @@ export const useFetchIncomes = () => {
        
     }
 
-    return { incomeList, inerror, inloading, addIncomes, updateIncomes, deleteIncomes, filterIncomes, filteredIListI }
+    return { incomeList,  inloading, addIncomes, updateIncomes, deleteIncomes, filterIncomes }
 }

@@ -62,8 +62,8 @@ const Register = () => {
         navigate('/dashboard/dashboard')
       }
     } catch (err) {
-      console.log("i am in error block")
-      setmsg(err.message)
+      // console.log("i am in error block")
+      setmsg(err.response.data.message)
     }
     finally {
       setloading(false)
