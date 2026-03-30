@@ -40,6 +40,10 @@ apiClient.interceptors.response.use(
       }
       if (status === 500) {
         alert("Internal server error")
+        if (error.response?.data?.message?.includes("database has reached monthly usage")) {
+        alert("Service is unavilable, please try again later")
+        throw error
+      }
       }
       if (error.response?.data?.message?.includes("database has reached monthly usage")) {
         alert("Service is unavilable, please try again later")
