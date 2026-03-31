@@ -8,7 +8,15 @@ import hero2 from '../images/subhero1.webp'
 import feature1 from '../images/Expe1.png'
 import feature2 from '../images/analytics1.webp'
 import feature3 from '../images/insight2.jpg'
+import { useNavigate } from 'react-router-dom';
+
+
 const Home = () => {
+
+	const navigate = useNavigate()
+	const handleclick = () => {
+		navigate('/auth/register')
+	}
 
 	return (
 		<>
@@ -16,7 +24,6 @@ const Home = () => {
 				<Navbar1 />
 			</header>
 			<div className="page-wrapper">
-				{/* your home page content */}
 				<main className="home-container">
 					<section className="hero-section">
 						<div className="hero-text">
@@ -26,8 +33,8 @@ const Home = () => {
 								manage your financial life with clarity.
 							</p>
 							<div className="hero-buttons">
-								<button className="btn-primary">Get Started</button>
-								<button className="btn-secondary">View Dashboard</button>
+								<button className="btn-primary" onClick={handleclick}>Get Started</button>
+								<button className="btn-secondary" onClick={handleclick}>View Dashboard</button>
 							</div>
 						</div>
 						<div className="hero-image">
@@ -81,11 +88,11 @@ const Home = () => {
 						<p>
 							Build better financial habits and make smarter spending decisions.
 						</p>
-						<button className="btn-primary large">Create Free Account</button>
+						<button className="btn-primary large" onClick={handleclick}>Create Free Account</button>
 					</section>
 				</main>
 			</div>
-			<Footer/>
+			<Footer />
 		</>
 
 	);
