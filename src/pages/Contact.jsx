@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../pages/contact.css";
 import feature3 from '../images/insight2.jpg'
 import Navbar from "../shared/components/Navbar";
@@ -6,12 +6,32 @@ import Footer from "../shared/components/Footer";
 import Navbar1 from "../shared/components/Navbar1";
 
 const Contact = () => {
+    
+	const [formdata, setformdata] = useState({
+		cname : "",
+		email : "",
+		message : ""
+	})
+
+	const handlechange = (e) => {
+		const { name, value } = e.target
+		setformdata((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+	}
+
+	const handlesubmit = () => {
+		if(formdata.name === "" || formdata.email === "" || formdata.message === ""){
+			alert("Please fill all the details")
+		}else {
+			alert("Message has been sent. Support team will reach out to you")
+		}
+	}
 	return (
 		<>
 			<Navbar1 />
 			<div className="contact-container">
-
-				{/* HERO SECTION */}
 
 				<section className="contact-hero">
 
@@ -29,12 +49,8 @@ const Contact = () => {
 
 				</section>
 
-
-				{/* CONTACT CONTENT */}
-
 				<section className="contact-content">
 
-					{/* CONTACT FORM */}
 
 					<div className="contact-form">
 
@@ -43,28 +59,25 @@ const Contact = () => {
 						<form>
 
 							<div className="form-group">
-								<label>Name</label>
-								<input type="text" placeholder="Enter your name" />
+								<label htmlFor="name">Name</label>
+								<input type="text" name="name" placeholder="Enter your name" onChange={(e) => handlechange(e)} value={formdata.name} />
 							</div>
 
 							<div className="form-group">
-								<label>Email</label>
-								<input type="email" placeholder="Enter your email" />
+								<label htmlFor="email">Email</label>
+								<input type="email" name="email" placeholder="Enter your email" onChange={(e) => handlechange(e)} value={formdata.email} />
 							</div>
 
 							<div className="form-group">
-								<label>Message</label>
-								<textarea rows="5" placeholder="Write your message"></textarea>
+								<label htmlFor="message">Message</label>
+								<textarea rows="5" name="message" placeholder="Write your message" onChange={(e) => handlechange(e)} value={formdata.message}></textarea>
 							</div>
 
-							<button className="btn-primary">Send Message</button>
+							<button className="btn-primary" onClick={handlesubmit}>Send Message</button>
 
 						</form>
 
 					</div>
-
-
-					{/* CONTACT INFO */}
 
 					<div className="contact-info">
 
