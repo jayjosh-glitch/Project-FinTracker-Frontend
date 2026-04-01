@@ -87,6 +87,9 @@
 .green-text { color: #1B8A4E; }
 .red-text { color: #D32F2F; }
 
+.neutral-text {
+  color: #6c757d; /* gray */
+}
 /* ─── Chart Section ─── */
 .chart-section {
   width: 100%;
