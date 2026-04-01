@@ -66,15 +66,28 @@ const Dashboard = () => {
                         </div>
                         <div className='saving-box'>
                             <h2>
-                                <span className={monthData.totalsaving > 0 ? "green-text" : "red-text"}>
+                                <span
+                                    className={
+                                        monthData.totalsaving > 0
+                                            ? "green-text"
+                                            : monthData.totalsaving < 0
+                                                ? "red-text"
+                                                : "neutral-text"
+                                    }>
                                     {monthData.totalsaving > 0
                                         ? `₹${monthData.totalsaving}`
-                                        : `-₹${monthData.totalsaving}`
+                                        : monthData.totalsaving < 0
+                                            ? `-₹${Math.abs(monthData.totalsaving)}`
+                                            : `₹0`
                                     }
                                 </span>
                             </h2>
                             <p>
-                                {monthData.totalsaving > 0 ? "Saved this month" : "Overspent this month"}
+                                {monthData.totalsaving > 0
+                                    ? "Saved this month"
+                                    : monthData.totalsaving < 0
+                                        ? "Overspent this month"
+                                        : "No savings this month"}
                             </p>
                         </div>
                     </section>
@@ -87,7 +100,7 @@ const Dashboard = () => {
                                     <MonthlyFinanceChart sortedData={monthlyData} />
                                 </div>
                                 <div className="chart-card">
-                                    <h3>Expense Breakdown</h3>
+                                    <h3>Expense Breakdown for current FY</h3>
                                     <ExpensePieChart expenseCategory={expenseCategory} />
                                 </div>
                             </div>

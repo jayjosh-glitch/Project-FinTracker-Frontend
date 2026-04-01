@@ -90,7 +90,9 @@ const monthFYData = (expenseList, incomeList) => {
 const categoryData = (expenseList) => {
 
     let itemListE = {}
-    expenseList.forEach((item) => {
+    const currentyear = currentFY()
+    let listFY = expenseList.filter(e => e.financialYear === currentyear)
+    listFY.forEach((item) => {
         const category = item.category;
         if (category in itemListE) {
             itemListE[category] += item.amount;
@@ -107,6 +109,7 @@ const categoryData = (expenseList) => {
             value: amount,
         };
     });
+    console.log(monthlyData)
     return monthlyData
 }
 
