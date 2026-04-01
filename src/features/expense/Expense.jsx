@@ -154,7 +154,8 @@ const Expense = () => {
               ))}
             </tbody>
           </table>
-
+          {!exloading && expense.length === 0 && <p>No expenses found.</p>}
+          {error && <p className='error'>{error}</p>}
           <div className="pagination">
             <button disabled={page === 1} onClick={() => setpage(page - 1)}>Prev</button>
             <span>Page {page} of {totalPages}</span>
@@ -166,9 +167,6 @@ const Expense = () => {
               Showing {startRecord}–{endRecord} of {expense.length} expenses
             </span>
           </div>
-
-          {!exloading && expense.length === 0 && <p>No expenses found.</p>}
-          {error && <p className='error'>{error}</p>}
         </section>
 
         <div className='expenseAdd-container'>
