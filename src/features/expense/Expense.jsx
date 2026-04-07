@@ -16,7 +16,7 @@ const Expense = () => {
 
   const [newExpense, setnewExpense] = useState({
     expenseType: "",
-    amount: 0,
+    amount: "",
     date: "",
     month: "",
     category: "",
@@ -138,7 +138,6 @@ const Expense = () => {
                       Update
                     </button>
                   </td>
-
                   <td>
                     <button
                       className='delete'
@@ -303,6 +302,7 @@ const Expense = () => {
 
               <input
                 type="number"
+                placeholder='Amount'
                 value={newExpense.amount}
                 onChange={(e) =>
                   setnewExpense({ ...newExpense, amount: e.target.value })
@@ -310,7 +310,7 @@ const Expense = () => {
               />
 
               <input
-                placeholder="Financial Year"
+                placeholder="Financial Year (e.g., 2023-2024)"
                 value={newExpense.financialYear}
                 onChange={(e) =>
                   setnewExpense({ ...newExpense, financialYear: e.target.value })
